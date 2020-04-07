@@ -16,7 +16,7 @@ public class Calendar {
                 return firstDate.get(java.util.Calendar.DAY_OF_MONTH)<=secondDate.get(java.util.Calendar.DAY_OF_MONTH);
         return  false;
     }
-
+/*
     public static boolean checkTime(java.util.Calendar startTime,java.util.Calendar endTime,java.util.Calendar startTimeItemList,java.util.Calendar endTimeItemList){
 
         if (((startTime.after(startTimeItemList))&&(startTime.before(endTimeItemList)))||((endTime.after(startTimeItemList))&&(endTime.before(endTimeItemList)))) {
@@ -27,14 +27,20 @@ public class Calendar {
 
 
     }
+*/
+    public static boolean checkTime(java.util.Calendar startTime, java.util.Calendar endTime, java.util.Calendar startTimeItemList, java.util.Calendar endTimeItemList){
+        if (startTime.get(java.util.Calendar.DAY_OF_MONTH)==startTimeItemList.get(java.util.Calendar.DAY_OF_MONTH)){
 
-    public static boolean checkDate(java.util.Calendar startTime,java.util.Calendar endTime,java.util.Calendar startTimeItemList,java.util.Calendar endTimeItemList){
         if ((((startTime.get(java.util.Calendar.HOUR_OF_DAY))>=startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)) &&
                 startTime.get(java.util.Calendar.HOUR_OF_DAY)<endTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)) ||
                 (((endTime.get(java.util.Calendar.HOUR_OF_DAY))>startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)) &&
                 endTime.get(java.util.Calendar.HOUR_OF_DAY)<=endTimeItemList.get(java.util.Calendar.HOUR_OF_DAY))){
             return true; //  startTimeList <= start < endTimeList || startTimeList < end <= endTimeList
         }
+        if (((startTime.get(java.util.Calendar.HOUR_OF_DAY))<=(startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)))&&((endTime.get(java.util.Calendar.HOUR_OF_DAY))>=(endTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)))){
+          return true;
+        }
+
         if ((startTime.get(java.util.Calendar.HOUR_OF_DAY) == startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY))){
             if ((startTime.get(java.util.Calendar.MINUTE) == startTimeItemList.get(java.util.Calendar.MINUTE))){
                 return true;
@@ -46,7 +52,7 @@ public class Calendar {
             return true; //  startTimeList =< start < endTimeList || startTimeList < end <= endTimeList
         }else return false;
         return false;
-    }
+    }else return false;}
 //(Hour) firstTime<secondTime = true
 // (Hour) firstTime=secondTime (Minute) firstTime<=secondTime = true
     public static boolean beforeSameTime(java.util.Calendar firstTime, java.util.Calendar secondTime){

@@ -27,7 +27,7 @@ public class Filers {
     /*
     Return List sort by room name
      */
-    public static List<Meet> getMeetGoodRoomName(String roomNAme,List<Meet> meets){
+    public static List<Meet> getMeetByRoomName(String roomNAme, List<Meet> meets){
         List<Meet> temp = new ArrayList<>();
         for (Meet meet: meets)
             if (meet.getRoomName().trim().equals(roomNAme.trim()))

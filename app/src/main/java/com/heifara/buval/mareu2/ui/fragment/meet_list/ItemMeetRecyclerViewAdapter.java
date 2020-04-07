@@ -1,6 +1,7 @@
 package com.heifara.buval.mareu2.ui.fragment.meet_list;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.heifara.buval.mareu2.R;
@@ -19,17 +21,22 @@ import com.heifara.buval.mareu2.view.ItemMeet;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> {
 
     private Context mContext;
     private List<Meet> meetList;
     private MeetApiService meetApiService;
+    Drawable drawable;
 
 
+    private static final ArrayList<String> sColorRessources = new ArrayList<>(Arrays.asList(
+            "#FFEB3B","#FF0000","#7EADE3","#1E0099","#24EA45","#FD4BAE","#B5BD38","#F59B42","#42F5E6","#756E91","#D054E3","#BF4349","#E3D514" ));
 
 
 
@@ -37,6 +44,7 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
         mContext = context;
         meetApiService= DI.getMeetApiService();
         meetList = meetApiService.getMeets(date,room);
+        drawable = ContextCompat.getDrawable(mContext,R.drawable.ic_circle);
     }
 
     @NonNull
@@ -44,7 +52,8 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
     public ItemMeet onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.meet_item,parent,false);
-        return new ItemMeet(view);
+
+        return new ItemMeet(view,mContext);
 
     }
 
@@ -59,6 +68,14 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
                 meet.getRoomName(),
                 DateFormat.getTimeFormat(mContext).format(meet.getStart().getTime()),
                 meet.getMeetTopic()));
+       /* drawable.setTint(Color.parseColor(randomColor()));
+        Glide.with(holder.mImageView.getContext())
+                .load(drawable)
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.mImageView);*/
+
+       /* holder.mImageView.setBackgroundColor(Color.parseColor(randomColor()));*/
+
         holder.mDescriptionText.setText(info);
         holder.mParticipantsText.setText(TextUtils.join(",",
                 meet.getGuests()));
@@ -74,8 +91,17 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
 
     }
 
+
     @Override
     public int getItemCount() {
         return meetList.size();
     }
+
+
+
+    public static String  randomColor(){
+        int random = new Random().nextInt(sColorRessources.size()-1);
+        return sColorRessources.get(random);
+    }
 }
+

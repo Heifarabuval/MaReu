@@ -25,6 +25,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.heifara.buval.mareu2.R;
 import com.heifara.buval.mareu2.di.DI;
 import com.heifara.buval.mareu2.model.Meet;
+import com.heifara.buval.mareu2.service.DummyMeetGenerator;
 import com.heifara.buval.mareu2.service.MeetApiService;
 import com.heifara.buval.mareu2.service.MeetApiServiceException;
 
@@ -41,9 +42,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.OnTouch;
 
-import static com.heifara.buval.mareu2.utils.Calendar.checkDate;
-import static com.heifara.buval.mareu2.utils.Calendar.compareDate;
-import static com.heifara.buval.mareu2.utils.Calendar.compareTime;
+import static com.heifara.buval.mareu2.utils.Calendar.checkTime;
 
 public class AddMeetActivity extends AppCompatActivity {
     public static MeetApiService meetApiService;
@@ -162,34 +161,23 @@ public class AddMeetActivity extends AppCompatActivity {
         Calendar date = validDate(mDateTextInputLayout);
         Calendar start = validStartTime(mStartTimeTextInputLayout);
         Calendar end = validStartTime(mEndTimeTextInputLayout);
-        List <Meet> curentMeetList =meetApiService.getMeets(date,roomName);
+        List <Meet> currentMeetList =meetApiService.getMeets(date,roomName);
+        currentMeetList.addAll(DummyMeetGenerator.DUMMY_MEETS);
 
-        for (int i = 0; i <curentMeetList.size() ; i++) {
-            Calendar tempDate = curentMeetList.get(i).getDate();
-            Calendar tempStartTime = curentMeetList.get(i).getStart();
-            Calendar tempEndTime = curentMeetList.get(i).getEnd();
-            String tempRoomName = curentMeetList.get(i).getRoomName();
+        for (int i = 0; i <currentMeetList.size() ; i++) {
+            Calendar tempStartTime = currentMeetList.get(i).getStart();
+            Calendar tempEndTime = currentMeetList.get(i).getEnd();
 
-            if (checkDate(start,end,tempStartTime,tempEndTime)){
+            if (checkTime(start,end,tempStartTime,tempEndTime)){
                 System.out.println("SameRoom at same time same day");
                 mRoomNameTextInputLayout.setError(getText(R.string.error_meeting_room_already_booked));
                 error= true;
             }
 
-            if (compareDate(tempDate,date)==0)
-            { System.out.println("SameDate");
-                if (compareTime(tempStartTime,start)==0){System.out.println("SameTime");
-                    if (tempRoomName.equals(roomName)){
-                        System.out.println("SameRoom");
-                        mRoomNameTextInputLayout.setError(getText(R.string.error_meeting_room_already_booked));
-                        error= true;
-                    }}
-
-
 
 
             }
-        }}
+        }
 
 
 

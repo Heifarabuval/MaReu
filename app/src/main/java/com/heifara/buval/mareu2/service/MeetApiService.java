@@ -41,7 +41,7 @@ public interface MeetApiService {
      */
     List<Meet> getMeets(Calendar date,String roomName);
 
-
+List<Meet> getMeetsList();
     /**
      *  Deletes a meet
      * @param idMeet
