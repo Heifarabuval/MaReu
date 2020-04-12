@@ -194,8 +194,9 @@ public class AddMeetActivity extends AppCompatActivity {
         Calendar end = validStartTime(mEndTimeTextInputLayout);
         List<String> email = validEmail(mEmailsTextInputLayout,mEmailsChipGroup);
         error=false;
-        checkBookingRooms();
 
+
+        if(start != null && end != null&&end != null){checkBookingRooms();}else{error = true;}
         if(start != null && end != null){
             if (end.before(start)){
                 mEndTimeTextInputLayout.setError(getText(R.string.error_date_passed));
