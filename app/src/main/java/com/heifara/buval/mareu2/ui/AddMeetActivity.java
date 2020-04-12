@@ -169,7 +169,7 @@ public class AddMeetActivity extends AppCompatActivity {
             Calendar tempStartTime = currentMeetList.get(i).getStart();
             Calendar tempEndTime = currentMeetList.get(i).getEnd();
 
-            if ((checkTime(start,end,tempStartTime,tempEndTime))
+            if (checkTime(start,end,tempStartTime,tempEndTime)
                     ||outRangeTime(start,end,tempStartTime,tempEndTime)
                     ||inRangeTime(start,end,tempStartTime,tempEndTime)){
                 System.out.println("SameRoom at same time same day");
@@ -200,7 +200,7 @@ public class AddMeetActivity extends AppCompatActivity {
             if (end.before(start)){
                 mEndTimeTextInputLayout.setError(getText(R.string.error_date_passed));
                 error=true;
-            }else error = false;
+            }
         }
 
         if(date != null && start != null){
@@ -211,7 +211,7 @@ public class AddMeetActivity extends AppCompatActivity {
                 if (start.before(mNow)||end.before(mNow)) {
                     mStartTimeTextInputLayout.setError(getText(R.string.error_time_passed));
                     error = true;
-                }else error= false;
+                }
             }
 
         }
