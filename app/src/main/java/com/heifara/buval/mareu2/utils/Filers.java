@@ -15,7 +15,10 @@ public class Filers {
      */
     public static List<Meet> getMeetByDate(Calendar date,List<Meet> meetings){
         List<Meet> temp = new ArrayList<>();
+
+
         for(Meet meet: meetings)
+
             if(sameDate(meet.getStart(),date))
                 temp.add(meet);
         Collections.sort(temp);

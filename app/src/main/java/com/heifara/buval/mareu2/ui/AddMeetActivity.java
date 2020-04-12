@@ -25,7 +25,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.heifara.buval.mareu2.R;
 import com.heifara.buval.mareu2.di.DI;
 import com.heifara.buval.mareu2.model.Meet;
-import com.heifara.buval.mareu2.service.DummyMeetGenerator;
 import com.heifara.buval.mareu2.service.MeetApiService;
 import com.heifara.buval.mareu2.service.MeetApiServiceException;
 
@@ -43,6 +42,8 @@ import butterknife.OnTextChanged;
 import butterknife.OnTouch;
 
 import static com.heifara.buval.mareu2.utils.Calendar.checkTime;
+import static com.heifara.buval.mareu2.utils.Calendar.inRangeTime;
+import static com.heifara.buval.mareu2.utils.Calendar.outRangeTime;
 
 public class AddMeetActivity extends AppCompatActivity {
     public static MeetApiService meetApiService;
@@ -162,16 +163,19 @@ public class AddMeetActivity extends AppCompatActivity {
         Calendar start = validStartTime(mStartTimeTextInputLayout);
         Calendar end = validStartTime(mEndTimeTextInputLayout);
         List <Meet> currentMeetList =meetApiService.getMeets(date,roomName);
-        currentMeetList.addAll(DummyMeetGenerator.DUMMY_MEETS);
+
 
         for (int i = 0; i <currentMeetList.size() ; i++) {
             Calendar tempStartTime = currentMeetList.get(i).getStart();
             Calendar tempEndTime = currentMeetList.get(i).getEnd();
 
-            if (checkTime(start,end,tempStartTime,tempEndTime)){
+            if ((checkTime(start,end,tempStartTime,tempEndTime))
+                    ||outRangeTime(start,end,tempStartTime,tempEndTime)
+                    ||inRangeTime(start,end,tempStartTime,tempEndTime)){
                 System.out.println("SameRoom at same time same day");
                 mRoomNameTextInputLayout.setError(getText(R.string.error_meeting_room_already_booked));
                 error= true;
+                break;
             }
 
 
@@ -189,35 +193,39 @@ public class AddMeetActivity extends AppCompatActivity {
         Calendar start = validStartTime(mStartTimeTextInputLayout);
         Calendar end = validStartTime(mEndTimeTextInputLayout);
         List<String> email = validEmail(mEmailsTextInputLayout,mEmailsChipGroup);
+        error=false;
         checkBookingRooms();
 
         if(start != null && end != null){
             if (end.before(start)){
                 mEndTimeTextInputLayout.setError(getText(R.string.error_date_passed));
                 error=true;
-            }
+            }else error = false;
         }
+
         if(date != null && start != null){
             start.set(Calendar.YEAR,date.get(Calendar.YEAR));
             start.set(Calendar.MONTH,date.get(Calendar.MONTH));
             start.set(Calendar.DAY_OF_MONTH,date.get(Calendar.DAY_OF_MONTH));
-            if (start.before(mNow)){
-                mStartTimeTextInputLayout.setError(getText(R.string.error_time_passed));
-                error=true;
+            if (mNow.get(Calendar.DAY_OF_MONTH)==start.get(Calendar.DAY_OF_MONTH)) {
+                if (start.before(mNow)||end.before(mNow)) {
+                    mStartTimeTextInputLayout.setError(getText(R.string.error_time_passed));
+                    error = true;
+                }else error= false;
             }
+
         }
-        if(date != null && end != null){
-            end.set(Calendar.YEAR,date.get(Calendar.YEAR));
-            end.set(Calendar.MONTH,date.get(Calendar.MONTH));
-            end.set(Calendar.DAY_OF_MONTH,date.get(Calendar.DAY_OF_MONTH));
-        }
+
+
+
 
         if(error){
             Toast.makeText(this.getApplicationContext(),getText(R.string.error_empty),Toast.LENGTH_LONG).show();
-            error=false;
-        }else {
 
+        }else {
+            error=false;
             try {
+
                 meetApiService.createMeet(new Meet(
                         roomName,
                         date,

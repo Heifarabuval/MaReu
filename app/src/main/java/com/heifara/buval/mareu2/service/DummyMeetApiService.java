@@ -24,7 +24,7 @@ public class DummyMeetApiService implements MeetApiService{
     /* Room List */
     public DummyMeetApiService() {
         mMeet = new ArrayList<>();
-        mMeet.addAll(DummyMeetGenerator.DUMMY_MEETS);
+    mMeet.addAll(DummyMeetGenerator.DUMMY_MEETS);
         mRooms = new ArrayList<>(Arrays.asList(
                 "Room 1","Room 2 ","Room 3","Room 4 ","Room 5","Room 6 ",
                 "Room 7","Room 8 ","Room 9","Room 10 "));
@@ -34,8 +34,10 @@ public class DummyMeetApiService implements MeetApiService{
     /* Override methods from MeetApiService */
     @Override
     public List<Meet> getMeets(Calendar date, String roomName) {
+
         if (date!=null && roomName!= null && !roomName.isEmpty())
             return getMeetByDate(date, getMeetByRoomName(roomName,mMeet));
+
         else if (date!=null)
             return getMeetByDate(date,mMeet);
         else if (roomName!= null && ! roomName.isEmpty())
