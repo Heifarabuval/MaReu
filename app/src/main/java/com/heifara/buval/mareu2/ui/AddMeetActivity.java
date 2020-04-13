@@ -41,9 +41,12 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.OnTouch;
 
+
 import static com.heifara.buval.mareu2.utils.Calendar.checkTime;
+import static com.heifara.buval.mareu2.utils.Calendar.endInStartOut;
 import static com.heifara.buval.mareu2.utils.Calendar.inRangeTime;
 import static com.heifara.buval.mareu2.utils.Calendar.outRangeTime;
+import static com.heifara.buval.mareu2.utils.Calendar.startInEndOut;
 
 public class AddMeetActivity extends AppCompatActivity {
     public static MeetApiService meetApiService;
@@ -171,7 +174,9 @@ public class AddMeetActivity extends AppCompatActivity {
 
             if (checkTime(start,end,tempStartTime,tempEndTime)
                     ||outRangeTime(start,end,tempStartTime,tempEndTime)
-                    ||inRangeTime(start,end,tempStartTime,tempEndTime)){
+                    ||inRangeTime(start,end,tempStartTime,tempEndTime)
+                    ||startInEndOut(start,end,tempStartTime,tempEndTime)
+                    ||endInStartOut(start,end,tempStartTime,tempEndTime)){
                 System.out.println("SameRoom at same time same day");
                 mRoomNameTextInputLayout.setError(getText(R.string.error_meeting_room_already_booked));
                 error= true;
@@ -216,9 +221,6 @@ public class AddMeetActivity extends AppCompatActivity {
             }
 
         }
-
-
-
 
         if(error){
             Toast.makeText(this.getApplicationContext(),getText(R.string.error_empty),Toast.LENGTH_LONG).show();
