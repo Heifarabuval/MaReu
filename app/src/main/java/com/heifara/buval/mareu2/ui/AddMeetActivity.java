@@ -2,6 +2,7 @@ package com.heifara.buval.mareu2.ui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.format.DateFormat;
@@ -27,13 +28,16 @@ import com.heifara.buval.mareu2.di.DI;
 import com.heifara.buval.mareu2.model.Meet;
 import com.heifara.buval.mareu2.service.MeetApiService;
 import com.heifara.buval.mareu2.service.MeetApiServiceException;
+import com.heifara.buval.mareu2.ui.fragment.meet_list.ItemMeetRecyclerViewAdapter;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +57,8 @@ public class AddMeetActivity extends AppCompatActivity {
     private Calendar mNow;
     private List<String>mRooms;
     private boolean error;
+    private static final ArrayList<String> sColorRessources = new ArrayList<>(Arrays.asList(
+            "#FFEB3B","#FF0000","#7EADE3","#1E0099","#24EA45","#FD4BAE","#B5BD38","#F59B42","#42F5E6","#756E91","#D054E3","#BF4349","#E3D514" ));
     @BindView(R.id.room_name_layout)
     TextInputLayout mRoomNameTextInputLayout;
     @BindView(R.id.room_name)
@@ -221,7 +227,6 @@ public class AddMeetActivity extends AppCompatActivity {
             }
 
         }
-
         if(error){
             Toast.makeText(this.getApplicationContext(),getText(R.string.error_empty),Toast.LENGTH_LONG).show();
 
@@ -235,7 +240,7 @@ public class AddMeetActivity extends AppCompatActivity {
                         start,
                         end,
                         email,
-                        topic));
+                        topic, Color.parseColor(randomColor())));
                 Toast.makeText(this.getApplicationContext(), R.string.add_new_meet, Toast.LENGTH_LONG).show();
                 finish();
             } catch (MeetApiServiceException e) {
@@ -396,6 +401,11 @@ public class AddMeetActivity extends AppCompatActivity {
         mEmailsChipGroup.addView(emailChip);
         mEmailsTextInputEditText.setText("");
         mEmailsTextInputLayout.setError(null);
+    }
+    public static String randomColor(){
+        int random = new Random().nextInt(ItemMeetRecyclerViewAdapter.DRAWABLES.size()-1);
+
+        return ItemMeetRecyclerViewAdapter.DRAWABLES.get(random);
     }
 }
 

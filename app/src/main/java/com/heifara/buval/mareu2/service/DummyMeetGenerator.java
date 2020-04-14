@@ -1,6 +1,12 @@
 package com.heifara.buval.mareu2.service;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
+import com.heifara.buval.mareu2.R;
 import com.heifara.buval.mareu2.model.Meet;
+import com.heifara.buval.mareu2.ui.fragment.meet_list.ItemMeetRecyclerViewAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +14,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public abstract class DummyMeetGenerator {
   static String dateStart1= "31-08-2020 10:00:00";
@@ -28,6 +35,8 @@ public abstract class DummyMeetGenerator {
   static Calendar dateEndCal3 = convertStringToDate(dateEnd3);
   static Calendar dateEndCal4 = convertStringToDate(dateEnd4);
   static List<String> emailList= Arrays.asList("aaa@ddd.com","bbb@ggg.com");
+    static Drawable drawable;
+  ;
 
 
     public static Calendar convertStringToDate(String date)  {
@@ -45,19 +54,16 @@ public abstract class DummyMeetGenerator {
         return cal;
     }
 
-
 public static final List<Meet> DUMMY_MEETS= Arrays.asList(
-        new Meet("Room 1",dateStartCal1,dateStartCal1,dateEndCal1,emailList,"dd"),
-        new Meet("Room 2",dateStartCal2,dateStartCal2,dateEndCal2,emailList,"dd"),
-        new Meet("Room 3",dateStartCal3,dateStartCal3,dateEndCal3,emailList,"dd"),
-        new Meet("Room 4",dateStartCal4,dateStartCal4,dateEndCal4,emailList,"dd")
+
+
+        new Meet("Room 1",dateStartCal1,dateStartCal1,dateEndCal1,emailList,"dd", Color.parseColor("#E3D514")),
+        new Meet("Room 2",dateStartCal2,dateStartCal2,dateEndCal2,emailList,"dd",Color.parseColor("#D054E3")),
+        new Meet("Room 3",dateStartCal3,dateStartCal3,dateEndCal3,emailList,"dd",Color.parseColor("#756E91")),
+        new Meet("Room 4",dateStartCal4,dateStartCal4,dateEndCal4,emailList,"dd",Color.parseColor("#F59B42"))
 
 
         );
-
-
-
-
 
 
 

@@ -50,14 +50,14 @@ public class FilterFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         @SuppressLint("Inflate Parameters")
         View view = inflater.inflate(R.layout.filter, null);
         ButterKnife.bind(this, view);
         meetApiService = DI.getMeetApiService();
         mRoomFilter.setAdapter(new ArrayAdapter<>(
-                Objects.requireNonNull(getContext()),
+                requireContext(),
                 R.layout.room_item,
                 mRooms));
 
@@ -89,7 +89,7 @@ public class FilterFragment extends DialogFragment {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog mDatePickerDialog;
 
-        mDatePickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()),
+        mDatePickerDialog = new DatePickerDialog(requireContext(),
                 (view, year, month, dayOfMonth) -> {
                     Calendar cal = Calendar.getInstance();
                     cal.set(year, month, dayOfMonth);

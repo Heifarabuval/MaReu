@@ -15,16 +15,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.heifara.buval.mareu2.R;
+import com.heifara.buval.mareu2.di.DI;
+import com.heifara.buval.mareu2.model.Meet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
-public class ItemMeet extends RecyclerView.ViewHolder{
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private static final ArrayList<String> sColorRessources = new ArrayList<>(Arrays.asList(
-            "#FFEB3B","#FF0000","#7EADE3","#1E0099","#24EA45","#FD4BAE","#B5BD38","#F59B42","#42F5E6","#756E91","#D054E3","#BF4349","#E3D514" ));
-    public final ImageView mImageView;
+public class ItemMeet extends RecyclerView.ViewHolder{
+    @BindView(R.id.circle_item)
+    public ImageView mImageView;
+
+
     public final TextView mDescriptionText;
     public final TextView mParticipantsText;
     public final ImageButton mDeleteButton;
@@ -32,29 +38,18 @@ public class ItemMeet extends RecyclerView.ViewHolder{
    static Drawable drawable;
     public ItemMeet(@NonNull View itemView,Context context) {
         super(itemView);
+        ButterKnife.bind(this,itemView);
         mContext = context;
         mImageView = itemView.findViewById(R.id.circle_item);
         mDescriptionText = itemView.findViewById(R.id.description_item);
         mDeleteButton=itemView.findViewById(R.id.delete_item);
         mParticipantsText=itemView.findViewById(R.id.participants_item);
         drawable = ContextCompat.getDrawable(mContext,R.drawable.ic_circle);
-changeColor();
+
+
 
     }
 
-    public static String  randomColor(){
-        int random = new Random().nextInt(sColorRessources.size()-1);
-        return sColorRessources.get(random);
-    }
-
-public void changeColor() {
-    drawable.setTint(Color.parseColor(randomColor()));
-    Glide.with(mImageView.getContext())
-            .load(drawable)
-            .apply(RequestOptions.circleCropTransform())
-            .into(mImageView);
-
-}
 
 
 }

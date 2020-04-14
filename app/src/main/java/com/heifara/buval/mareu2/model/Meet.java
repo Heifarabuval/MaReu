@@ -1,4 +1,5 @@
 package com.heifara.buval.mareu2.model;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -27,7 +28,8 @@ public class Meet implements Comparable<Meet> {
     /**Meet Name*/
     private String meetTopic;
     /**Avatar*/
-    private Integer avatar ;
+    private int avatar;
+
 
 
 
@@ -43,7 +45,7 @@ public class Meet implements Comparable<Meet> {
      * @param  meetTopic
      */
 
-    public Meet(String roomName,Calendar date, Calendar start, Calendar end, List<String> guests, String meetTopic) {
+    public Meet(String roomName,Calendar date, Calendar start, Calendar end, List<String> guests, String meetTopic,int avatar) {
         id = ++sLastId;
         this.roomName = roomName;
         this.start = start;
@@ -52,6 +54,7 @@ public class Meet implements Comparable<Meet> {
         this.date=date;
         this.meetTopic = meetTopic;
         guests = new ArrayList<>();
+        this.avatar = avatar;
 
     }
 
@@ -97,8 +100,12 @@ public class Meet implements Comparable<Meet> {
         return meetTopic;
     }
 
-    public Integer getAvatar() {
+    public int getAvatar() {
         return avatar;
+    }
+
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
     }
 
     @Override
