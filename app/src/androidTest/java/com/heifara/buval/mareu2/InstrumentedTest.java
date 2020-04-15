@@ -34,6 +34,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -52,7 +53,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(AndroidJUnit4.class)
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ExampleInstrumentedTest {
+public class InstrumentedTest {
     private ListMeetActivity meetActivity;
 
     private  static int ITEM_COUNT=4;
@@ -367,6 +368,48 @@ public void dAddSameMeet(){ //start = & end =
         linearLayout.check(matches(isDisplayed()));
 
 
+    }
+
+    @Test
+    public void filteredByRoomName() {
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.filter), withContentDescription("menu_filter"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.action_bar),
+                                        1),
+                                0),
+                        isDisplayed()));
+        actionMenuItemView.perform(click());
+
+        ViewInteraction appCompatAutoCompleteTextView = onView(
+                allOf(withId(R.id.room_filter),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.custom),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatAutoCompleteTextView.perform(replaceText("Room 2"), closeSoftKeyboard());
+
+        ViewInteraction materialButton = onView(
+                allOf(withId(android.R.id.button1), withText("OK"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.buttonPanel),
+                                        0),
+                                3)));
+        materialButton.perform(scrollTo(), click());
+
+        ViewInteraction viewGroup = onView(
+                allOf(childAtPosition(
+                        allOf(withId(R.id.meet_list),
+                                childAtPosition(
+                                        IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
+                                        0)),
+                        0),
+                        isDisplayed()));
+        viewGroup.check(matches(isDisplayed()));
     }
 
     @Test

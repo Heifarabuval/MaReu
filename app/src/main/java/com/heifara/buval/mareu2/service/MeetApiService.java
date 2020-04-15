@@ -44,11 +44,11 @@ public interface MeetApiService {
 List<Meet> getMeetsList();
     /**
      *  Deletes a meet
-     * @param idMeet
-     */
-    void deleteMeet(Integer idMeet);
-
-
+     * @param meet
+    */
+    void deleteMeet(Meet meet);
+/*
+void deleteMeetTest(Meet meet);*/
     /**
      * Create Meet
      * @param  meet

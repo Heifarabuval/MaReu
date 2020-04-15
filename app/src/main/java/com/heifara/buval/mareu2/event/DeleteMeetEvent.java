@@ -1,15 +1,15 @@
 package com.heifara.buval.mareu2.event;
 
+import com.heifara.buval.mareu2.model.Meet;
+
 public class DeleteMeetEvent {
-    private int meetId;
+    public final Meet meet;
 
-    public DeleteMeetEvent(int meetId) {
-        this.meetId = meetId;
+    public DeleteMeetEvent(Meet meet) {
+        this.meet = meet;
     }
 
-    public int getMeetId() {
-        return meetId;
-    }
+
 
 
 }

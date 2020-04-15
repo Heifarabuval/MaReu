@@ -89,9 +89,10 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
         //delete meet
 
         holder.mDeleteButton.setOnClickListener(
-                v-> EventBus.getDefault().post(new DeleteMeetEvent(meet.getId()))
-
-        );
+                v-> {
+                    EventBus.getDefault().post(new DeleteMeetEvent(meet));
+                }
+                );
 
     }
 

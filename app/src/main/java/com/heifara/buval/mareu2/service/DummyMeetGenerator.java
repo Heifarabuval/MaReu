@@ -35,8 +35,7 @@ public abstract class DummyMeetGenerator {
   static Calendar dateEndCal3 = convertStringToDate(dateEnd3);
   static Calendar dateEndCal4 = convertStringToDate(dateEnd4);
   static List<String> emailList= Arrays.asList("aaa@ddd.com","bbb@ggg.com");
-    static Drawable drawable;
-  ;
+
 
 
     public static Calendar convertStringToDate(String date)  {

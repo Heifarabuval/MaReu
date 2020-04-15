@@ -13,7 +13,7 @@ import static com.heifara.buval.mareu2.utils.Filers.getMeetByRoomName;
 
 public class DummyMeetApiService implements MeetApiService{
 
-    private List<Meet> mMeet;
+    public List<Meet> mMeet;
     private final List<String> mRooms;
     static Calendar calendar = Calendar.getInstance();
 
@@ -65,13 +65,24 @@ public class DummyMeetApiService implements MeetApiService{
     public void delAllRooms() {mRooms.clear();}
 
     @Override
-    public void deleteMeet(Integer idMeet) {
-        for(Meet meet: mMeet){
-            if (meet.getId().equals(idMeet)){
+    public void deleteMeet(Meet meetItem) {
+        for(Meet meet: new ArrayList<>(mMeet)){
+            if (meet.equals(meetItem)){
                 mMeet.remove(meet);
             }
         }
     }
+/*
+    @Override
+    public void deleteMeetTest(Meet meet) {
+List<Meet> tempMeetList = new ArrayList<>();
+tempMeetList.addAll(mMeet);
+        for(Meet tempMeet: tempMeetList){
+            if (meet.equals(meet)){
+                mMeet.remove(meet);
+            }
+        }
+    }*/
 
     @Override
     public void createMeet(Meet meet) {mMeet.add(meet); }

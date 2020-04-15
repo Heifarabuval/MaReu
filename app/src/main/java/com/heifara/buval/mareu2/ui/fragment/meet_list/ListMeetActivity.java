@@ -97,10 +97,11 @@ public class ListMeetActivity extends AppCompatActivity implements FilterFragmen
     }
     @Subscribe
     public void  onDeleteMeet(DeleteMeetEvent event){
-        meetApiService.deleteMeet(event.getMeetId());
+
+        meetApiService.deleteMeet(event.meet);
         Toast.makeText(getApplicationContext(), "Réunion supprimée", Toast.LENGTH_SHORT).show();
         init(null,"");
-        System.out.println("MeetList Size  "+ event.getMeetId());
+
     }
     private void init(Calendar date,String room){
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
