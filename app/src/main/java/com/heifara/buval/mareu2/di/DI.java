@@ -27,7 +27,7 @@ public class DI {
             service.addRoom(room);
         for (Meet meet: meets)
             service.createMeet(meet);
-    }*/ //TODO
+    }*/ 
 }
 
 
