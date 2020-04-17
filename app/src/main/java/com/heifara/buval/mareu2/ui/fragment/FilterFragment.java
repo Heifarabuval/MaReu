@@ -19,12 +19,9 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.heifara.buval.mareu2.R;
-import com.heifara.buval.mareu2.di.DI;
-import com.heifara.buval.mareu2.service.MeetApiService;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,12 +29,13 @@ import butterknife.OnClick;
 import butterknife.OnTouch;
 
 public class FilterFragment extends DialogFragment {
-    @BindView(R.id.date_filter) TextInputEditText mDateFilter;
-    @BindView(R.id.room_filter) AutoCompleteTextView mRoomFilter;
-    private MeetApiService meetApiService;
-    private List<String> mRooms;
+    private final List<String> mRooms;
+    @BindView(R.id.date_filter)
+    TextInputEditText mDateFilter;
+    @BindView(R.id.room_filter)
+    AutoCompleteTextView mRoomFilter;
     private Calendar mDate;
-    private String mRoom;
+
 
     private OnButtonClickedListener mCallback;
 
@@ -55,7 +53,6 @@ public class FilterFragment extends DialogFragment {
         @SuppressLint("Inflate Parameters")
         View view = inflater.inflate(R.layout.filter, null);
         ButterKnife.bind(this, view);
-        meetApiService = DI.getMeetApiService();
         mRoomFilter.setAdapter(new ArrayAdapter<>(
                 requireContext(),
                 R.layout.room_item,
@@ -103,10 +100,9 @@ public class FilterFragment extends DialogFragment {
         mDatePickerDialog.show();
     }
 
-
     @OnTouch(R.id.room_filter)
     boolean onTouch(View v, MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
             mRoomFilter.showDropDown();
             return true;
         }

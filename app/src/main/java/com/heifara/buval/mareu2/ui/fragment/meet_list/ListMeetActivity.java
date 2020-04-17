@@ -28,19 +28,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ListMeetActivity extends AppCompatActivity implements FilterFragment.OnButtonClickedListener {
-    private static final String TAG ="ListMeetActivity" ;
-    public static MeetApiService meetApiService;
+    private static final String TAG = "ListMeetActivity";
+    private static MeetApiService meetApiService;
 
-    @BindView(R.id.meet_list) RecyclerView mRecyclerView;
-    @BindView(R.id.meet_add) FloatingActionButton mFloatingActionButton;
+    @BindView(R.id.meet_list)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.meet_add)
+    FloatingActionButton mFloatingActionButton;
 
-
-
-
-    private ItemMeetRecyclerViewAdapter mMeetRecyclerViewAdapter;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_meet);
         ButterKnife.bind(this);
@@ -50,15 +48,15 @@ public class ListMeetActivity extends AppCompatActivity implements FilterFragmen
 
     @Override
     public void onButtonClicked(Calendar date, String room, boolean reset) {
-        if(reset||date!=null||!room.isEmpty())
-            init(date,room);
+        if (reset || date != null || !room.isEmpty())
+            init(date, room);
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        init(null,"");
+        init(null, "");
     }
 
     @Override
@@ -74,8 +72,8 @@ public class ListMeetActivity extends AppCompatActivity implements FilterFragmen
     }
 
     @Override
-    public boolean onOptionsItemSelected( MenuItem item) {
-        if (item.getItemId()==R.id.filter){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.filter) {
             Log.d(TAG, "onOptionsItemSelected: filterClicked");
             performFilter();
             return true;
@@ -87,25 +85,27 @@ public class ListMeetActivity extends AppCompatActivity implements FilterFragmen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tool_bar_filter,menu);
+        getMenuInflater().inflate(R.menu.tool_bar_filter, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    private  void performFilter() {
+    private void performFilter() {
         FilterFragment filterFragment = new FilterFragment(meetApiService.getRooms());
         filterFragment.show(getSupportFragmentManager(), "filter");
     }
+
     @Subscribe
-    public void  onDeleteMeet(DeleteMeetEvent event){
+    public void onDeleteMeet(DeleteMeetEvent event) {
 
         meetApiService.deleteMeet(event.meet);
         Toast.makeText(getApplicationContext(), "Réunion supprimée", Toast.LENGTH_SHORT).show();
-        init(null,"");
+        init(null, "");
 
     }
-    private void init(Calendar date,String room){
+
+    private void init(Calendar date, String room) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mMeetRecyclerViewAdapter = new ItemMeetRecyclerViewAdapter(this,date,room);
+        ItemMeetRecyclerViewAdapter mMeetRecyclerViewAdapter = new ItemMeetRecyclerViewAdapter(this, date, room);
         mRecyclerView.setAdapter(mMeetRecyclerViewAdapter);
     }
 }

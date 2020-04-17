@@ -11,48 +11,36 @@ import java.util.List;
 public interface MeetApiService {
     /**
      * Get all the Rooms
+     *
      * @return {@link List}
      */
     List<String> getRooms();
 
 
-    /**
-     * Create a room
-     * @param room
-     */
-    void addRoom(String room);
-
-    /**
-     * Delete a Room
-     * @param room
-     */
-    void delRoom(String room);
-
-
-    /**
-     * Delete all Room
-     */
-    void delAllRooms();
 
 
     /**
      * Get all my meets
+     *
      * @return {@link List}
      */
-    List<Meet> getMeets(Calendar date,String roomName);
+    List<Meet> getMeets(Calendar date, String roomName);
 
-List<Meet> getMeetsList();
+    List<Meet> getMeetsList();
+
     /**
-     *  Deletes a meet
+     * Deletes a meet
+     *
      * @param meet
-    */
+     */
     void deleteMeet(Meet meet);
-/*
-void deleteMeetTest(Meet meet);*/
+
+
     /**
      * Create Meet
-     * @param  meet
+     *
+     * @param meet
      */
-    void createMeet (Meet meet) throws MeetApiServiceException ;
+    void createMeet(Meet meet) throws MeetApiServiceException;
 
 }

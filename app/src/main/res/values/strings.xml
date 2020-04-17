@@ -9,7 +9,7 @@
     <string name="action_add">action_add</string>
     <string name="menu_filter">menu_filter</string>
     <string name="empty_error_text">\"Time cannot be empty \"</string>
-    <string name="error_date_passed" >\"Passed date \"</string>
+    <string name="error_date_passed">\"Passed date \"</string>
     <string name="error_empty">Cannot be empty</string>
     <string name="error_meeting_room_already_booked">\"The meeting room is already booked\"</string>
     <string name="add_new_meet">Meet added</string>
@@ -17,4 +17,5 @@
     <string name="error_time_passed">\"Invalid input time, time already passed \"</string>
     <string name="empty_email">"error email cannot be empty "</string>
     <string name="error_input">invalid input</string>
+    <string name="invalid_mail">Invalid mail input</string>
 </resources>

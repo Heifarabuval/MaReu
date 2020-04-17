@@ -54,180 +54,35 @@ import static org.junit.Assert.assertThat;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class InstrumentedTest {
-    private ListMeetActivity meetActivity;
 
-    private  static int ITEM_COUNT=4;
+    private static final int ITEM_COUNT = 4;
 
     @Rule
-    public final ActivityTestRule<ListMeetActivity> meetActivityActivityTestRule =new ActivityTestRule(ListMeetActivity.class);
+    public final ActivityTestRule<ListMeetActivity> meetActivityActivityTestRule = new ActivityTestRule(ListMeetActivity.class);
 
     @Before
-    public void setup(){
-        meetActivity = meetActivityActivityTestRule.getActivity();
-        assertThat(meetActivity,notNullValue());
-
+    public void setup() {
+        ListMeetActivity meetActivity = meetActivityActivityTestRule.getActivity();
+        assertThat(meetActivity, notNullValue());
 
 
     }
 
 
-
     @Test
-    public void cMeetList_deleteAction(){
+    public void cMeetList_deleteAction() {
 
         // Given : We remove the element at position 2
-        onView(allOf(isDisplayed(),withId(R.id.meet_list))).check(withItemCount(ITEM_COUNT+1));
+        onView(allOf(isDisplayed(), withId(R.id.meet_list))).check(withItemCount(ITEM_COUNT + 1));
         // When perform a click on a delete icon
-        onView(allOf(isDisplayed(),withId(R.id.meet_list)))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1,new DeleteViewAction()));
+        onView(allOf(isDisplayed(), withId(R.id.meet_list)))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
         // Then : the number of element is 11
-        onView(allOf(isDisplayed(),withId(R.id.meet_list))).check(withItemCount(ITEM_COUNT));
+        onView(allOf(isDisplayed(), withId(R.id.meet_list))).check(withItemCount(ITEM_COUNT));
     }
-@Test
-public void dAddSameMeet(){ //start = & end =
 
-    ViewInteraction floatingActionButton = onView(
-            allOf(withId(R.id.meet_add),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(android.R.id.content),
-                                    0),
-                            1),
-                    isDisplayed()));
-    floatingActionButton.perform(click());
-
-    ViewInteraction appCompatAutoCompleteTextView = onView(
-            allOf(withId(R.id.room_name),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(R.id.room_name_layout),
-                                    0),
-                            0),
-                    isDisplayed()));
-    appCompatAutoCompleteTextView.perform(replaceText("Room 1"), closeSoftKeyboard());
-
-    ViewInteraction textInputEditText = onView(
-            allOf(withId(R.id.topic),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(R.id.topic_layout),
-                                    0),
-                            0),
-                    isDisplayed()));
-    textInputEditText.perform(replaceText("Conf"), closeSoftKeyboard());
-
-
-
-    ViewInteraction textInputEditText2 = onView(
-            allOf(withId(R.id.date),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(R.id.date_layout),
-                                    0),
-                            0),
-                    isDisplayed()));
-    textInputEditText2.perform(replaceText("31/08/2020"), closeSoftKeyboard());
-
-
-
-    ViewInteraction textInputEditText3 = onView(
-            allOf(withId(R.id.from),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(R.id.from_layout),
-                                    0),
-                            0),
-                    isDisplayed()));
-    textInputEditText3.perform(replaceText("10:00"),closeSoftKeyboard());
-
-
-
-    ViewInteraction textInputEditText4 = onView(
-            allOf(withId(R.id.until),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(R.id.until_layout),
-                                    0),
-                            0),
-                    isDisplayed()));
-    textInputEditText4.perform(replaceText("12:00"),closeSoftKeyboard());
-
-
-
-    ViewInteraction textInputEditText5 = onView(
-            allOf(withId(R.id.emails),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(R.id.participants),
-                                    0),
-                            0),
-                    isDisplayed()));
-    textInputEditText5.perform(replaceText("aa@cc.bb"), closeSoftKeyboard());
-
-    ViewInteraction textInputEditText6 = onView(
-            allOf(withId(R.id.emails), withText("aa@cc.bb"),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(R.id.participants),
-                                    0),
-                            0),
-                    isDisplayed()));
-    textInputEditText6.perform(pressImeActionButton());
-
-    ViewInteraction textInputEditText7 = onView(
-            allOf(withId(R.id.emails),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(R.id.participants),
-                                    0),
-                            0),
-                    isDisplayed()));
-    textInputEditText7.perform(click());
-
-    ViewInteraction textInputEditText8 = onView(
-            allOf(withId(R.id.emails),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(R.id.participants),
-                                    0),
-                            0),
-                    isDisplayed()));
-    textInputEditText8.perform(replaceText("dd@ee.ff"), closeSoftKeyboard());
-
-    ViewInteraction textInputEditText9 = onView(
-            allOf(withId(R.id.emails), withText("dd@ee.ff"),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(R.id.participants),
-                                    0),
-                            0),
-                    isDisplayed()));
-    textInputEditText9.perform(pressImeActionButton());
-
-    ViewInteraction actionMenuItemView = onView(
-            allOf(withId(R.id.action_add_meeting), withContentDescription("action_add"),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(R.id.action_bar),
-                                    2),
-                            0),
-                    isDisplayed()));
-    actionMenuItemView.perform(click());
-
-    ViewInteraction linearLayout = onView(
-            allOf(withId(R.id.room_name_layout),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(android.R.id.content),
-                                    0),
-                            0),
-                    isDisplayed()));
-    linearLayout.check(matches(isDisplayed()));
-
-
-    }
     @Test
-    public void eAddSameMeet(){ //start in end in
+    public void dAddSameMeet() { //start = & end =
 
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.meet_add),
@@ -260,7 +115,6 @@ public void dAddSameMeet(){ //start = & end =
         textInputEditText.perform(replaceText("Conf"), closeSoftKeyboard());
 
 
-
         ViewInteraction textInputEditText2 = onView(
                 allOf(withId(R.id.date),
                         childAtPosition(
@@ -272,7 +126,6 @@ public void dAddSameMeet(){ //start = & end =
         textInputEditText2.perform(replaceText("31/08/2020"), closeSoftKeyboard());
 
 
-
         ViewInteraction textInputEditText3 = onView(
                 allOf(withId(R.id.from),
                         childAtPosition(
@@ -281,8 +134,7 @@ public void dAddSameMeet(){ //start = & end =
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText3.perform(replaceText("10:30"),closeSoftKeyboard());
-
+        textInputEditText3.perform(replaceText("10:00"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText4 = onView(
@@ -293,8 +145,7 @@ public void dAddSameMeet(){ //start = & end =
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText4.perform(replaceText("11:40"),closeSoftKeyboard());
-
+        textInputEditText4.perform(replaceText("12:00"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText5 = onView(
@@ -371,7 +222,183 @@ public void dAddSameMeet(){ //start = & end =
     }
 
     @Test
-    public void filteredByRoomName() {
+    public void eAddSameMeet() { //start in end in
+
+        ViewInteraction floatingActionButton = onView(
+                allOf(withId(R.id.meet_add),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                1),
+                        isDisplayed()));
+        floatingActionButton.perform(click());
+
+        ViewInteraction appCompatAutoCompleteTextView = onView(
+                allOf(withId(R.id.room_name),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.room_name_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        appCompatAutoCompleteTextView.perform(replaceText("Room 1"), closeSoftKeyboard());
+
+        ViewInteraction textInputEditText = onView(
+                allOf(withId(R.id.topic),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.topic_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText.perform(replaceText("Conf"), closeSoftKeyboard());
+
+
+        ViewInteraction textInputEditText2 = onView(
+                allOf(withId(R.id.date),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.date_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText2.perform(replaceText("31/08/2020"), closeSoftKeyboard());
+
+
+        ViewInteraction textInputEditText3 = onView(
+                allOf(withId(R.id.from),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.from_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText3.perform(replaceText("10:30"), closeSoftKeyboard());
+
+
+        ViewInteraction textInputEditText4 = onView(
+                allOf(withId(R.id.until),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.until_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText4.perform(replaceText("11:40"), closeSoftKeyboard());
+
+
+        ViewInteraction textInputEditText5 = onView(
+                allOf(withId(R.id.emails),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText5.perform(replaceText("aa@cc.bb"), closeSoftKeyboard());
+
+        ViewInteraction textInputEditText6 = onView(
+                allOf(withId(R.id.emails), withText("aa@cc.bb"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText6.perform(pressImeActionButton());
+
+        ViewInteraction textInputEditText7 = onView(
+                allOf(withId(R.id.emails),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText7.perform(click());
+
+        ViewInteraction textInputEditText8 = onView(
+                allOf(withId(R.id.emails),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText8.perform(replaceText("dd@ee.ff"), closeSoftKeyboard());
+
+        ViewInteraction textInputEditText9 = onView(
+                allOf(withId(R.id.emails), withText("dd@ee.ff"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText9.perform(pressImeActionButton());
+
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.action_add_meeting), withContentDescription("action_add"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.action_bar),
+                                        2),
+                                0),
+                        isDisplayed()));
+        actionMenuItemView.perform(click());
+
+        ViewInteraction linearLayout = onView(
+                allOf(withId(R.id.room_name_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                0),
+                        isDisplayed()));
+        linearLayout.check(matches(isDisplayed()));
+
+
+    }
+    @Test
+    public void afilteredByDate() {
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.filter), withContentDescription("menu_filter"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.action_bar),
+                                        1),
+                                0),
+                        isDisplayed()));
+        actionMenuItemView.perform(click());
+
+        ViewInteraction textInputEditText = onView(
+                allOf(withId(R.id.date_filter),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.custom),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText.perform(replaceText("31/08/2020"), closeSoftKeyboard());
+
+        ViewInteraction materialButton = onView(
+                allOf(withId(android.R.id.button1), withText("OK"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.buttonPanel),
+                                        0),
+                                1)));
+        materialButton.perform(scrollTo(), click());
+
+        isDisplayed();
+
+
+    }
+
+
+    @Test
+    public void aFilteredByRoomName() {
         ViewInteraction actionMenuItemView = onView(
                 allOf(withId(R.id.filter), withContentDescription("menu_filter"),
                         childAtPosition(
@@ -401,19 +428,19 @@ public void dAddSameMeet(){ //start = & end =
                                 3)));
         materialButton.perform(scrollTo(), click());
 
-        ViewInteraction viewGroup = onView(
-                allOf(childAtPosition(
-                        allOf(withId(R.id.meet_list),
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.description_item), withText("Room 2-12:00-Java conference"),
+                        childAtPosition(
                                 childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
-                                        0)),
-                        0),
+                                        withId(R.id.meet_list),
+                                        0),
+                                1),
                         isDisplayed()));
-        viewGroup.check(matches(isDisplayed()));
+        textView.check(matches(withText("Room 2-12:00-Java conference")));
     }
 
     @Test
-    public void fAddSameMeet(){ //start out end out
+    public void fAddSameMeet() { //start out end out
 
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.meet_add),
@@ -446,7 +473,6 @@ public void dAddSameMeet(){ //start = & end =
         textInputEditText.perform(replaceText("Conf"), closeSoftKeyboard());
 
 
-
         ViewInteraction textInputEditText2 = onView(
                 allOf(withId(R.id.date),
                         childAtPosition(
@@ -458,7 +484,6 @@ public void dAddSameMeet(){ //start = & end =
         textInputEditText2.perform(replaceText("31/08/2020"), closeSoftKeyboard());
 
 
-
         ViewInteraction textInputEditText3 = onView(
                 allOf(withId(R.id.from),
                         childAtPosition(
@@ -467,8 +492,7 @@ public void dAddSameMeet(){ //start = & end =
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText3.perform(replaceText("08:00"),closeSoftKeyboard());
-
+        textInputEditText3.perform(replaceText("08:00"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText4 = onView(
@@ -479,8 +503,7 @@ public void dAddSameMeet(){ //start = & end =
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText4.perform(replaceText("13:00"),closeSoftKeyboard());
-
+        textInputEditText4.perform(replaceText("13:00"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText5 = onView(
@@ -554,12 +577,10 @@ public void dAddSameMeet(){ //start = & end =
         linearLayout.check(matches(isDisplayed()));
 
 
-
-
-
     }
+
     @Test
-    public void gAddSameMeet(){ //start in end out
+    public void gAddSameMeet() { //start in end out
 
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.meet_add),
@@ -592,7 +613,6 @@ public void dAddSameMeet(){ //start = & end =
         textInputEditText.perform(replaceText("Conf"), closeSoftKeyboard());
 
 
-
         ViewInteraction textInputEditText2 = onView(
                 allOf(withId(R.id.date),
                         childAtPosition(
@@ -604,7 +624,6 @@ public void dAddSameMeet(){ //start = & end =
         textInputEditText2.perform(replaceText("31/08/2020"), closeSoftKeyboard());
 
 
-
         ViewInteraction textInputEditText3 = onView(
                 allOf(withId(R.id.from),
                         childAtPosition(
@@ -613,8 +632,7 @@ public void dAddSameMeet(){ //start = & end =
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText3.perform(replaceText("09:00"),closeSoftKeyboard());
-
+        textInputEditText3.perform(replaceText("09:00"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText4 = onView(
@@ -625,8 +643,7 @@ public void dAddSameMeet(){ //start = & end =
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText4.perform(replaceText("11:30"),closeSoftKeyboard());
-
+        textInputEditText4.perform(replaceText("11:30"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText5 = onView(
@@ -700,13 +717,10 @@ public void dAddSameMeet(){ //start = & end =
         linearLayout.check(matches(isDisplayed()));
 
 
-
-
-
     }
 
     @Test
-    public void hAddSameMeet(){//start in end out
+    public void hAddSameMeet() {//start in end out
 
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.meet_add),
@@ -739,7 +753,6 @@ public void dAddSameMeet(){ //start = & end =
         textInputEditText.perform(replaceText("Conf"), closeSoftKeyboard());
 
 
-
         ViewInteraction textInputEditText2 = onView(
                 allOf(withId(R.id.date),
                         childAtPosition(
@@ -751,7 +764,6 @@ public void dAddSameMeet(){ //start = & end =
         textInputEditText2.perform(replaceText("31/08/2020"), closeSoftKeyboard());
 
 
-
         ViewInteraction textInputEditText3 = onView(
                 allOf(withId(R.id.from),
                         childAtPosition(
@@ -760,8 +772,7 @@ public void dAddSameMeet(){ //start = & end =
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText3.perform(replaceText("10:30"),closeSoftKeyboard());
-
+        textInputEditText3.perform(replaceText("10:30"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText4 = onView(
@@ -772,8 +783,7 @@ public void dAddSameMeet(){ //start = & end =
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText4.perform(replaceText("13:00"),closeSoftKeyboard());
-
+        textInputEditText4.perform(replaceText("13:00"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText5 = onView(
@@ -847,10 +857,8 @@ public void dAddSameMeet(){ //start = & end =
         linearLayout.check(matches(isDisplayed()));
 
 
-
-
-
     }
+
     @Test
     public void bAddMeetAndCheckList() {
 
@@ -885,7 +893,6 @@ public void dAddSameMeet(){ //start = & end =
         textInputEditText.perform(replaceText("Conf"), closeSoftKeyboard());
 
 
-
         ViewInteraction textInputEditText2 = onView(
                 allOf(withId(R.id.date),
                         childAtPosition(
@@ -897,7 +904,6 @@ public void dAddSameMeet(){ //start = & end =
         textInputEditText2.perform(replaceText("23/06/2020"), closeSoftKeyboard());
 
 
-
         ViewInteraction textInputEditText3 = onView(
                 allOf(withId(R.id.from),
                         childAtPosition(
@@ -906,8 +912,7 @@ public void dAddSameMeet(){ //start = & end =
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText3.perform(replaceText("09:40"),closeSoftKeyboard());
-
+        textInputEditText3.perform(replaceText("09:40"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText4 = onView(
@@ -918,8 +923,7 @@ public void dAddSameMeet(){ //start = & end =
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText4.perform(replaceText("10:40"),closeSoftKeyboard());
-
+        textInputEditText4.perform(replaceText("10:40"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText5 = onView(
@@ -986,12 +990,12 @@ public void dAddSameMeet(){ //start = & end =
                 allOf(childAtPosition(
                         allOf(withId(R.id.meet_list),
                                 childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
+                                        IsInstanceOf.instanceOf(android.view.ViewGroup.class),
                                         0)),
                         4),
                         isDisplayed()));
         viewGroup.check(matches(isDisplayed()));
-        onView(allOf(isDisplayed(),withId(R.id.meet_list))).check(withItemCount(ITEM_COUNT+1));
+        onView(allOf(isDisplayed(), withId(R.id.meet_list))).check(withItemCount(ITEM_COUNT + 1));
     }
 
 
@@ -1007,7 +1011,6 @@ public void dAddSameMeet(){ //start = & end =
                         isDisplayed()));
         recyclerView.check(matches(isDisplayed()));
     }
-
 
 
     private static Matcher<View> childAtPosition(
@@ -1040,5 +1043,6 @@ public void dAddSameMeet(){ //start = & end =
                 }
             }
         });
-        return currentActivity[0];}
+        return currentActivity[0];
+    }
 }

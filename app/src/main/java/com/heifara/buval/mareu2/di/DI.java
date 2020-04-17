@@ -1,25 +1,24 @@
 package com.heifara.buval.mareu2.di;
 
-import com.heifara.buval.mareu2.model.Meet;
 import com.heifara.buval.mareu2.service.DummyMeetApiService;
 import com.heifara.buval.mareu2.service.MeetApiService;
-import com.heifara.buval.mareu2.service.MeetApiServiceException;
-
-import java.util.List;
 
 /**
  * Dependency injector to get instance of services
  */
 public class DI {
-    public static  MeetApiService service = new DummyMeetApiService();
+    private static final MeetApiService service = new DummyMeetApiService();
 
     /**
      * Get an instance of {@link MeetApiService}
-     * @return
+     *
+     * @return service
      */
-    public static  MeetApiService getMeetApiService(){return service;}
+    public static MeetApiService getMeetApiService() {
+        return service;
+    }
 
-    public  static void  initMeetApiService (List<String> rooms, List<Meet> meets) throws MeetApiServiceException{
+    /*public  static void  initMeetApiService (List<String> rooms, List<Meet> meets) throws MeetApiServiceException{
 
         service = new DummyMeetApiService();
         service.delAllRooms();
@@ -28,7 +27,7 @@ public class DI {
             service.addRoom(room);
         for (Meet meet: meets)
             service.createMeet(meet);
-    }
+    }*/ //TODO
 }
 
 

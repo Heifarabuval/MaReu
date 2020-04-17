@@ -32,7 +32,6 @@ import com.heifara.buval.mareu2.ui.fragment.meet_list.ItemMeetRecyclerViewAdapte
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +44,6 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.OnTouch;
 
-
 import static com.heifara.buval.mareu2.utils.Calendar.checkTime;
 import static com.heifara.buval.mareu2.utils.Calendar.endInStartOut;
 import static com.heifara.buval.mareu2.utils.Calendar.inRangeTime;
@@ -53,70 +51,67 @@ import static com.heifara.buval.mareu2.utils.Calendar.outRangeTime;
 import static com.heifara.buval.mareu2.utils.Calendar.startInEndOut;
 
 public class AddMeetActivity extends AppCompatActivity {
-    public static MeetApiService meetApiService;
+    private static MeetApiService meetApiService;
     private Calendar mNow;
-    private List<String>mRooms;
     private boolean error;
-    private static final ArrayList<String> sColorRessources = new ArrayList<>(Arrays.asList(
-            "#FFEB3B","#FF0000","#7EADE3","#1E0099","#24EA45","#FD4BAE","#B5BD38","#F59B42","#42F5E6","#756E91","#D054E3","#BF4349","#E3D514" ));
+
     @BindView(R.id.room_name_layout)
     TextInputLayout mRoomNameTextInputLayout;
     @BindView(R.id.room_name)
     AutoCompleteTextView mRoomNameAutoCompleteTextView;
 
-    @BindView(R.id.topic_layout) TextInputLayout mTopicTextInputLayout;
+    @BindView(R.id.topic_layout)
+    TextInputLayout mTopicTextInputLayout;
     @BindView(R.id.topic)
     TextInputEditText mTopicTextInputEditText;
 
-    @BindView(R.id.date_layout) TextInputLayout mDateTextInputLayout;
-    @BindView(R.id.date) TextInputEditText mDateTextInputEditText;
-    @BindView(R.id.from_layout) TextInputLayout mStartTimeTextInputLayout;
-    @BindView(R.id.from) TextInputEditText mStartTimeTextInputEditText;
-    @BindView(R.id.until_layout) TextInputLayout mEndTimeTextInputLayout;
-    @BindView(R.id.until) TextInputEditText mEndTimeTextInputEditText;
+    @BindView(R.id.date_layout)
+    TextInputLayout mDateTextInputLayout;
+    @BindView(R.id.date)
+    TextInputEditText mDateTextInputEditText;
+    @BindView(R.id.from_layout)
+    TextInputLayout mStartTimeTextInputLayout;
+    @BindView(R.id.from)
+    TextInputEditText mStartTimeTextInputEditText;
+    @BindView(R.id.until_layout)
+    TextInputLayout mEndTimeTextInputLayout;
+    @BindView(R.id.until)
+    TextInputEditText mEndTimeTextInputEditText;
 
-    @BindView(R.id.participants) TextInputLayout mEmailsTextInputLayout;
-    @BindView(R.id.emails_group) ChipGroup mEmailsChipGroup;
-    @BindView(R.id.emails) TextInputEditText mEmailsTextInputEditText;
+    @BindView(R.id.participants)
+    TextInputLayout mEmailsTextInputLayout;
+    @BindView(R.id.emails_group)
+    ChipGroup mEmailsChipGroup;
+    @BindView(R.id.emails)
+    TextInputEditText mEmailsTextInputEditText;
+
+    private static boolean validateEmail(String value) {
+        return Patterns.EMAIL_ADDRESS.matcher(value.trim()).matches();
+    }
+
+    private static String randomColor() {
+        int random = new Random().nextInt(ItemMeetRecyclerViewAdapter.DRAWABLES.size() - 1);
+
+        return ItemMeetRecyclerViewAdapter.DRAWABLES.get(random);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meet);
         ButterKnife.bind(this);
-        error=false;
-        meetApiService= DI.getMeetApiService();
-        mNow=Calendar.getInstance();
-        mRooms=meetApiService.getRooms();
+        error = false;
+        meetApiService = DI.getMeetApiService();
+        mNow = Calendar.getInstance();
+        List<String> mRooms = meetApiService.getRooms();
         initEmailsKeyListener();
-        mRoomNameAutoCompleteTextView.setAdapter(new ArrayAdapter<>(this,R.layout.room_item,mRooms));
+        mRoomNameAutoCompleteTextView.setAdapter(new ArrayAdapter<>(this, R.layout.room_item, mRooms));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tool_bar_add_meet,menu);
+        getMenuInflater().inflate(R.menu.tool_bar_add_meet, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_add_meeting:
-                addMeet();
-                return true;
-            case R.id.home:
-                Toast.makeText(this.getApplicationContext(), "Error",Toast.LENGTH_LONG).show();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @OnTouch(R.id.room_name)
-    boolean onTouch(View view, MotionEvent motionEvent){
-        if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
-            mRoomNameAutoCompleteTextView.showDropDown();
-            return true;
-        }
-        return (motionEvent.getAction()==MotionEvent.ACTION_UP);
     }
 
     @OnClick(R.id.date)
@@ -138,6 +133,7 @@ public class AddMeetActivity extends AppCompatActivity {
 
         datePickerDialog.show();
     }
+
     @OnClick({R.id.from, R.id.until})
     void displayTime(View v) {
         final int id = v.getId();
@@ -165,73 +161,92 @@ public class AddMeetActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add_meeting:
+                addMeet();
+                return true;
+            case R.id.home:
+                Toast.makeText(this.getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-    private void checkBookingRooms(){
+    @OnTouch(R.id.room_name)
+    boolean onTouch(MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+            mRoomNameAutoCompleteTextView.showDropDown();
+            return true;
+        }
+        return (motionEvent.getAction() == MotionEvent.ACTION_UP);
+    }
+
+    private void checkBookingRooms() {
         String roomName = checkTextInput(mRoomNameTextInputLayout);
         Calendar date = validDate(mDateTextInputLayout);
         Calendar start = validStartTime(mStartTimeTextInputLayout);
         Calendar end = validStartTime(mEndTimeTextInputLayout);
-        List <Meet> currentMeetList =meetApiService.getMeets(date,roomName);
+        List<Meet> currentMeetList = meetApiService.getMeets(date, roomName);
 
 
-        for (int i = 0; i <currentMeetList.size() ; i++) {
+        for (int i = 0; i < currentMeetList.size(); i++) {
             Calendar tempStartTime = currentMeetList.get(i).getStart();
             Calendar tempEndTime = currentMeetList.get(i).getEnd();
 
-            if (checkTime(start,end,tempStartTime,tempEndTime)
-                    ||outRangeTime(start,end,tempStartTime,tempEndTime)
-                    ||inRangeTime(start,end,tempStartTime,tempEndTime)
-                    ||startInEndOut(start,end,tempStartTime,tempEndTime)
-                    ||endInStartOut(start,end,tempStartTime,tempEndTime)){
-                System.out.println("SameRoom at same time same day");
+            if (checkTime(start, end, tempStartTime, tempEndTime)
+                    || outRangeTime(start, end, tempStartTime, tempEndTime)
+                    || inRangeTime(start, end, tempStartTime, tempEndTime)
+                    || startInEndOut(start, end, tempStartTime, tempEndTime)
+                    || endInStartOut(start, end, tempStartTime, tempEndTime)) {
                 mRoomNameTextInputLayout.setError(getText(R.string.error_meeting_room_already_booked));
-                error= true;
+                error = true;
                 break;
             }
 
 
-
-            }
         }
+    }
 
-
-
-
-    private void addMeet()  {
+    private void addMeet() {
         String roomName = checkTextInput(mRoomNameTextInputLayout);
         String topic = checkTextInput(mTopicTextInputLayout);
         Calendar date = validDate(mDateTextInputLayout);
         Calendar start = validStartTime(mStartTimeTextInputLayout);
         Calendar end = validStartTime(mEndTimeTextInputLayout);
-        List<String> email = validEmail(mEmailsTextInputLayout,mEmailsChipGroup);
-        error=false;
+        List<String> email = validEmail(mEmailsTextInputLayout, mEmailsChipGroup);
+        error = false;
 
 
-        if(start != null && end != null&&end != null){checkBookingRooms();}else{error = true;}
-        if(start != null && end != null){
-            if (end.before(start)){
+        if (start != null && end != null) {
+            checkBookingRooms();
+        } else {
+            error = true;
+        }
+        if (start != null && end != null) {
+            if (end.before(start)) {
                 mEndTimeTextInputLayout.setError(getText(R.string.error_date_passed));
-                error=true;
+                error = true;
             }
         }
 
-        if(date != null && start != null){
-            start.set(Calendar.YEAR,date.get(Calendar.YEAR));
-            start.set(Calendar.MONTH,date.get(Calendar.MONTH));
-            start.set(Calendar.DAY_OF_MONTH,date.get(Calendar.DAY_OF_MONTH));
-            if (mNow.get(Calendar.DAY_OF_MONTH)==start.get(Calendar.DAY_OF_MONTH)) {
-                if (start.before(mNow)||end.before(mNow)) {
+        if (date != null && start != null) {
+            start.set(Calendar.YEAR, date.get(Calendar.YEAR));
+            start.set(Calendar.MONTH, date.get(Calendar.MONTH));
+            start.set(Calendar.DAY_OF_MONTH, date.get(Calendar.DAY_OF_MONTH));
+            if (mNow.get(Calendar.DAY_OF_MONTH) == start.get(Calendar.DAY_OF_MONTH)) {
+                if (start.before(mNow) || end.before(mNow)) {
                     mStartTimeTextInputLayout.setError(getText(R.string.error_time_passed));
                     error = true;
                 }
             }
 
         }
-        if(error){
-            Toast.makeText(this.getApplicationContext(),getText(R.string.error_empty),Toast.LENGTH_LONG).show();
+        if (error) {
+            Toast.makeText(this.getApplicationContext(), getText(R.string.error_input), Toast.LENGTH_LONG).show();
 
-        }else {
-            error=false;
+        } else {
+            error = false;
             try {
 
                 meetApiService.createMeet(new Meet(
@@ -245,55 +260,50 @@ public class AddMeetActivity extends AppCompatActivity {
                 finish();
             } catch (MeetApiServiceException e) {
                 mRoomNameTextInputLayout.setError(getText(R.string.error_meeting_room_already_booked));
-                Toast.makeText(this.getApplicationContext(), R.string.error_meeting_room_already_booked, Toast.LENGTH_LONG).show();
                 error = false;
-            } } }
-
-
-    public static boolean validateEmail(String value){
-        return Patterns.EMAIL_ADDRESS.matcher(value.trim()).matches();
+            }
+        }
     }
 
-    private String checkTextInput(TextInputLayout inputValue){
+    private String checkTextInput(TextInputLayout inputValue) {
         String tempValue = Objects.requireNonNull(inputValue.getEditText().getText().toString().trim());
-        if(tempValue.isEmpty()){
+        if (tempValue.isEmpty()) {
             inputValue.setError(getText(R.string.empty_error_text));
-            error=true ;
-            return  null;
-        }else{
+            error = true;
+            return null;
+        } else {
             inputValue.setError(null);
             return tempValue;
         }
     }
 
-
-    private Calendar validDate(TextInputLayout inputValue){
+    private Calendar validDate(TextInputLayout inputValue) {
         String tempValue = Objects.requireNonNull(inputValue.getEditText().getText().toString().trim());
-        if (tempValue.isEmpty()){
+        if (tempValue.isEmpty()) {
             inputValue.setError(getString(R.string.error_empty));
-            error=true;
-            return  null;
+            error = true;
+            return null;
 
-        }else{
+        } else {
             try {
                 Date dDate = DateFormat.getDateFormat(getApplicationContext()).parse(tempValue);
                 Calendar now = Calendar.getInstance();
-                now.set(Calendar.HOUR_OF_DAY,0);
-                now.set(Calendar.MINUTE,0);
-                now.set(Calendar.SECOND,0);
-                now.set(Calendar.MILLISECOND,0);
-                Calendar date = (Calendar)now.clone();
+                now.set(Calendar.HOUR_OF_DAY, 0);
+                now.set(Calendar.MINUTE, 0);
+                now.set(Calendar.SECOND, 0);
+                now.set(Calendar.MILLISECOND, 0);
+                Calendar date = (Calendar) now.clone();
                 date.setTime(Objects.requireNonNull(dDate));
-                if (date.before(now)){
+                if (date.before(now)) {
                     inputValue.setError(getText(R.string.error_date_passed));
-                    error=true;
+                    error = true;
                     return null;
                 }
                 inputValue.setError(null);
-                return  date;
-            } catch (ParseException e ){
+                return date;
+            } catch (ParseException e) {
                 inputValue.setError(getText(R.string.error_format));
-                error=true;
+                error = true;
                 return null;
             }
 
@@ -301,17 +311,17 @@ public class AddMeetActivity extends AppCompatActivity {
 
     }
 
-    private List<String> validEmail(TextInputLayout inputValue,ChipGroup emails){
+    private List<String> validEmail(TextInputLayout inputValue, ChipGroup emails) {
         inputValue.setError(null);
         int number = emails.getChildCount();
         List<String> listEmails = new ArrayList<>();
 
-        if(number==0){
+        if (number == 0) {
             inputValue.setError(getText(R.string.error_empty));
             error = true;
-            return  null;
-        }else{
-            for (int i = 0; i < number ; i++) {
+            return null;
+        } else {
+            for (int i = 0; i < number; i++) {
                 Chip tempMail = (Chip) emails.getChildAt(i);
                 String email = tempMail.getText().toString();
                 listEmails.add(email);
@@ -319,54 +329,33 @@ public class AddMeetActivity extends AppCompatActivity {
         }
         return listEmails;
     }
-    private Calendar validStartTime(TextInputLayout inputValue){
+
+    private Calendar validStartTime(TextInputLayout inputValue) {
         String tempValue = Objects.requireNonNull(inputValue.getEditText().getText().toString().trim());
 
-        if(tempValue.isEmpty()){
+        if (tempValue.isEmpty()) {
             inputValue.setError(getText(R.string.error_empty));
-            error= true;
+            error = true;
             return null;
-        } else{
+        } else {
             try {
-                Date dTime= android.text.format.DateFormat.getTimeFormat(getApplicationContext()).parse(tempValue);
+                Date dTime = android.text.format.DateFormat.getTimeFormat(getApplicationContext()).parse(tempValue);
                 Calendar time = Calendar.getInstance();
                 time.setTime(Objects.requireNonNull(dTime));
 
-                time.set(Calendar.YEAR,mNow.get(Calendar.YEAR));
-                time.set(Calendar.MONTH,mNow.get(Calendar.MONTH));
-                time.set(Calendar.DAY_OF_MONTH,mNow.get(Calendar.DAY_OF_MONTH));
+                time.set(Calendar.YEAR, mNow.get(Calendar.YEAR));
+                time.set(Calendar.MONTH, mNow.get(Calendar.MONTH));
+                time.set(Calendar.DAY_OF_MONTH, mNow.get(Calendar.DAY_OF_MONTH));
                 mNow.get(Calendar.DAY_OF_MONTH);
                 inputValue.setError(null);
-                return  time;
-            } catch (ParseException e){
+                return time;
+            } catch (ParseException e) {
                 inputValue.setError(getText(R.string.error_format));
                 error = true;
-                return  null;
+                return null;
             }
 
         }
-    }
-    private void initEmailsKeyListener() {
-        mEmailsTextInputEditText.setOnKeyListener((v, keyCode, event) -> {
-            if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    String value = Objects.requireNonNull(mEmailsTextInputEditText.getText()).toString().trim();
-
-                    if (!value.isEmpty()) {
-                        if (!validateEmail(value)) {
-                            mEmailsTextInputLayout.setError("Email Invalide");
-
-                            return false;
-                        } else {
-                            addEmailToChipGroup(value);
-
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        });
     }
 
     @OnTextChanged(R.id.emails)
@@ -402,10 +391,28 @@ public class AddMeetActivity extends AppCompatActivity {
         mEmailsTextInputEditText.setText("");
         mEmailsTextInputLayout.setError(null);
     }
-    public static String randomColor(){
-        int random = new Random().nextInt(ItemMeetRecyclerViewAdapter.DRAWABLES.size()-1);
 
-        return ItemMeetRecyclerViewAdapter.DRAWABLES.get(random);
+    private void initEmailsKeyListener() {
+        mEmailsTextInputEditText.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    String value = Objects.requireNonNull(mEmailsTextInputEditText.getText()).toString().trim();
+
+                    if (!value.isEmpty()) {
+                        if (!validateEmail(value)) {
+                            mEmailsTextInputLayout.setError(getText(R.string.invalid_mail));
+
+                            return false;
+                        } else {
+                            addEmailToChipGroup(value);
+
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        });
     }
 }
 

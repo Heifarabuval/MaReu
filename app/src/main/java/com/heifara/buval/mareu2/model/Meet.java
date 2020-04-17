@@ -1,6 +1,5 @@
 package com.heifara.buval.mareu2.model;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -11,49 +10,56 @@ import java.util.regex.Pattern;
 public class Meet implements Comparable<Meet> {
 
     private static Integer sLastId = 0;
-    /**Indentifier*/
-    private Integer id;
+    /**
+     * Indentifier
+     */
+    private final Integer id;
 
-    /**Room name*/
-    private String roomName;
+    /**
+     * Room name
+     */
+    private final String roomName;
 
-    /**Date*/
-    private Calendar date;
-    private Calendar start;
+    /**
+     * Date
+     */
+    private final Calendar date;
+    private final Calendar start;
 
-    private Calendar end;
-    /**Guests*/
-    private List<String> guests;
+    private final Calendar end;
+    /**
+     * Guests
+     */
+    private final List<String> guests;
 
-    /**Meet Name*/
-    private String meetTopic;
-    /**Avatar*/
+    /**
+     * Meet Name
+     */
+    private final String meetTopic;
+    /**
+     * Avatar
+     */
     private int avatar;
-
-
-
-
-
 
 
     /**
      * Constructor
+     *
      * @param meetTopic
      * @param roomName
      * @param start
-     * @param  end
-     * @param  meetTopic
+     * @param end
+     * @param meetTopic
      */
 
-    public Meet(String roomName,Calendar date, Calendar start, Calendar end, List<String> guests, String meetTopic,int avatar) {
+    public Meet(String roomName, Calendar date, Calendar start, Calendar end, List<String> guests, String meetTopic, int avatar) {
         id = ++sLastId;
         this.roomName = roomName;
         this.start = start;
         this.end = end;
         this.guests = guests;
-        this.date=date;
+        this.date = date;
         this.meetTopic = meetTopic;
-        guests = new ArrayList<>();
         this.avatar = avatar;
 
     }
@@ -110,8 +116,9 @@ public class Meet implements Comparable<Meet> {
 
     @Override
     public int compareTo(Meet o) {
-        if (getStart()==null||o.getStart()==null){
-            return 0;}
-        return  getStart().compareTo(o.getStart());
+        if (getStart() == null || o.getStart() == null) {
+            return 0;
+        }
+        return getStart().compareTo(o.getStart());
     }
 }

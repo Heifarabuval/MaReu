@@ -34,72 +34,11 @@ import static org.junit.Assert.assertTrue;
 public class ServiceUnitTest {
 
     private MeetApiService meetApiService;
-    @Before
-    public void setup(){
-        meetApiService = DI.getMeetApiService();
-    }
 
-@Test
-public void dDeleteMeetWithSuccess(){
-
-    Meet meetToDelete= meetApiService.getMeetsList().get(0);
-        meetApiService.deleteMeet(meetToDelete);
-    assertFalse("Impossible de supprimer un voisin de la liste contacts",meetApiService.getMeetsList().contains(meetToDelete));
-}
-
-    @Test
-    public void aGetMeetsWithSuccess() {
-        List<Meet> meets = meetApiService.getMeetsList();
-        List<Meet> expectedNeighbours = DummyMeetGenerator.DUMMY_MEETS;
-        assertThat(meets, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNeighbours.toArray()));
-    }
-
-    @Test
-    public void bFilter(){
-        String roomName = "Room 1";
-        String dateStart= "31-08-2020 10:00:00";
-        Calendar dateStartCal1 = convertStringToDate(dateStart);
-      List<Meet> staticMeet = DummyMeetGenerator.DUMMY_MEETS;
-        List<Meet> meets = meetApiService.getMeets(dateStartCal1,"Room 1");
-        List<Meet> expectedMeet= new ArrayList<>();
-
-        for (int i = 0; i <staticMeet.size() ; i++) {
-
-            String tempRoomName = staticMeet.get(i).getRoomName();
-
-            if (tempRoomName.matches(roomName))
-            { expectedMeet.add(staticMeet.get(i));
-            }
-            assertTrue("Les listes ne correspondent pas",meets.containsAll(expectedMeet));
-        }
-
-
-    }
-
-
-
-    @Test
-    public void cAddMeet() {
- String dateStart= "31-07-2020 10:00:00";
- String dateEnd= "31-07-2020 12:00:00";
-        List<String> emailList= Arrays.asList("aaa@ddd.com","bbb@ggg.com");
-        Calendar dateStartCal1 = convertStringToDate(dateStart);
-         Calendar dateEndCal2 = convertStringToDate(dateEnd);
-        Meet meetToAdd = new Meet("Room 1",dateStartCal1,dateStartCal1,dateEndCal2,emailList,"voila", Color.parseColor("#D054E3"));
-        try {
-            meetApiService.createMeet(meetToAdd);
-            assertTrue("Impossible de créer et d'ajouter une réunion",meetApiService.getMeets(dateStartCal1,"Room 1").contains(meetToAdd));
-        } catch (MeetApiServiceException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    public static Calendar convertStringToDate(String date)  {
+    public static Calendar convertStringToDate(String date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date dateString = null;
-        Calendar cal =Calendar.getInstance();
+        Date dateString;
+        Calendar cal = Calendar.getInstance();
         try {
             dateString = simpleDateFormat.parse(date);
             cal.setTime(dateString);
@@ -109,5 +48,64 @@ public void dDeleteMeetWithSuccess(){
         }
 
         return cal;
+    }
+
+    @Before
+    public void setup() {
+        meetApiService = DI.getMeetApiService();
+    }
+
+    @Test
+    public void aGetMeetsWithSuccess() {
+        List<Meet> meets = meetApiService.getMeetsList();
+        List<Meet> expectedNeighbours = DummyMeetGenerator.DUMMY_MEETS;
+        assertThat(meets, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNeighbours.toArray()));
+    }
+
+    @Test
+    public void dDeleteMeetWithSuccess() {
+
+        Meet meetToDelete = meetApiService.getMeetsList().get(0);
+        meetApiService.deleteMeet(meetToDelete);
+        assertFalse("Impossible de supprimer un voisin de la liste contacts", meetApiService.getMeetsList().contains(meetToDelete));
+    }
+
+    @Test
+    public void bFilter() {
+        String roomName = "Room 1";
+        String dateStart = "31-08-2020 10:00:00";
+        Calendar dateStartCal1 = convertStringToDate(dateStart);
+        List<Meet> staticMeet = DummyMeetGenerator.DUMMY_MEETS;
+        List<Meet> meets = meetApiService.getMeets(dateStartCal1, "Room 1");
+        List<Meet> expectedMeet = new ArrayList<>();
+
+        for (int i = 0; i < staticMeet.size(); i++) {
+
+            String tempRoomName = staticMeet.get(i).getRoomName();
+
+            if (tempRoomName.matches(roomName)) {
+                expectedMeet.add(staticMeet.get(i));
+            }
+            assertTrue("Les listes ne correspondent pas", meets.containsAll(expectedMeet));
+        }
+
+
+    }
+
+    @Test
+    public void cAddMeet() {
+        String dateStart = "31-07-2020 10:00:00";
+        String dateEnd = "31-07-2020 12:00:00";
+        List<String> emailList = Arrays.asList("aaa@ddd.com", "bbb@ggg.com");
+        Calendar dateStartCal1 = convertStringToDate(dateStart);
+        Calendar dateEndCal2 = convertStringToDate(dateEnd);
+        Meet meetToAdd = new Meet("Room 1", dateStartCal1, dateStartCal1, dateEndCal2, emailList, "voila", Color.parseColor("#D054E3"));
+        try {
+            meetApiService.createMeet(meetToAdd);
+            assertTrue("Impossible de créer et d'ajouter une réunion", meetApiService.getMeets(dateStartCal1, "Room 1").contains(meetToAdd));
+        } catch (MeetApiServiceException e) {
+            e.printStackTrace();
+        }
+
     }
 }

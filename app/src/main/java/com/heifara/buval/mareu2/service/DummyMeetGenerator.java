@@ -1,12 +1,8 @@
 package com.heifara.buval.mareu2.service;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
 
-import com.heifara.buval.mareu2.R;
 import com.heifara.buval.mareu2.model.Meet;
-import com.heifara.buval.mareu2.ui.fragment.meet_list.ItemMeetRecyclerViewAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,34 +10,52 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 public abstract class DummyMeetGenerator {
-  static String dateStart1= "31-08-2020 10:00:00";
-  static String dateStart2= "18-08-2020 12:00:00";
-  static String dateStart3= "08-08-2020 06:00:00";
-  static String dateStart4= "10-08-2020 03:00:00";
-  static String dateEnd1= "31-08-2020 12:00:00";
-  static String dateEnd2= "18-08-2020 15:00:00";
-  static String dateEnd3= "08-08-2020 08:00:00";
-  static String dateEnd4= "10-08-2020 04:00:00";
+    /**
+     *
+     */
+    private static final String DATE_START1 = "31-08-2020 10:00:00";
+    private static final String DATE_START2 = "18-08-2020 12:00:00";
+    private static final String DATE_START3 = "08-08-2020 06:00:00";
+    private static final String DATE_START4 = "10-08-2020 03:00:00";
+    private static final String DATE_END1 = "31-08-2020 12:00:00";
+    private static final String DATE_END2 = "18-08-2020 15:00:00";
+    private static final String DATE_END3 = "08-08-2020 08:00:00";
+    private static final String DATE_END4 = "10-08-2020 04:00:00";
+    private static final Calendar DATE_START_CAL1 = convertStringToDate(DATE_START1);
+    private static final Calendar DATE_START_CAL2 = convertStringToDate(DATE_START2);
+    private static final Calendar DATE_START_CAL3 = convertStringToDate(DATE_START3);
+    private static final Calendar DATE_START_CAL4 = convertStringToDate(DATE_START4);
+    private static final Calendar DATE_END_CAL1 = convertStringToDate(DATE_END1);
+    private static final Calendar DATE_END_CAL2 = convertStringToDate(DATE_END2);
+    private static final Calendar DATE_END_CAL3 = convertStringToDate(DATE_END3);
+    private static final Calendar DATE_END_CAL4 = convertStringToDate(DATE_END4);
+    private static final List<String> EMAIL_LIST = Arrays.asList("aaa@ddd.com", "bbb@ggg.com");
+    private static final String ROOM1 = "Room 1";
+    private static final String ROOM2 = "Room 2";
+    private static final String ROOM3 = "Room 3";
+    private static final String ROOM4 = "Room 4";
+    private static final String COLOR1 = "#E3D514";
+    private static final String COLOR2 = "#D054E3";
+    private static final String COLOR3 = "#756E91";
+    private static final String COLOR4 = "#F59B42";
+    private static final String MEET_TOPIC = "Java conference";
+    public static final List<Meet> DUMMY_MEETS = Arrays.asList(
 
-  static Calendar dateStartCal1 = convertStringToDate(dateStart1);
-  static Calendar dateStartCal2 = convertStringToDate(dateStart2);
-  static Calendar dateStartCal3 = convertStringToDate(dateStart3);
-  static Calendar dateStartCal4 = convertStringToDate(dateStart4);
-  static Calendar dateEndCal1 = convertStringToDate(dateEnd1);
-  static Calendar dateEndCal2 = convertStringToDate(dateEnd2);
-  static Calendar dateEndCal3 = convertStringToDate(dateEnd3);
-  static Calendar dateEndCal4 = convertStringToDate(dateEnd4);
-  static List<String> emailList= Arrays.asList("aaa@ddd.com","bbb@ggg.com");
+
+            new Meet(ROOM1, DATE_START_CAL1, DATE_START_CAL1, DATE_END_CAL1, EMAIL_LIST, MEET_TOPIC, Color.parseColor(COLOR1)),
+            new Meet(ROOM2, DATE_START_CAL2, DATE_START_CAL2, DATE_END_CAL2, EMAIL_LIST, MEET_TOPIC, Color.parseColor(COLOR2)),
+            new Meet(ROOM3, DATE_START_CAL3, DATE_START_CAL3, DATE_END_CAL3, EMAIL_LIST, MEET_TOPIC, Color.parseColor(COLOR3)),
+            new Meet(ROOM4, DATE_START_CAL4, DATE_END_CAL4, DATE_END_CAL4, EMAIL_LIST, MEET_TOPIC, Color.parseColor(COLOR4))
 
 
+    );
 
-    public static Calendar convertStringToDate(String date)  {
+    private static Calendar convertStringToDate(String date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date dateString = null;
-        Calendar cal =Calendar.getInstance();
+        Date dateString;
+        Calendar cal = Calendar.getInstance();
         try {
             dateString = simpleDateFormat.parse(date);
             cal.setTime(dateString);
@@ -52,18 +66,6 @@ public abstract class DummyMeetGenerator {
 
         return cal;
     }
-
-public static final List<Meet> DUMMY_MEETS= Arrays.asList(
-
-
-        new Meet("Room 1",dateStartCal1,dateStartCal1,dateEndCal1,emailList,"dd", Color.parseColor("#E3D514")),
-        new Meet("Room 2",dateStartCal2,dateStartCal2,dateEndCal2,emailList,"dd",Color.parseColor("#D054E3")),
-        new Meet("Room 3",dateStartCal3,dateStartCal3,dateEndCal3,emailList,"dd",Color.parseColor("#756E91")),
-        new Meet("Room 4",dateStartCal4,dateStartCal4,dateEndCal4,emailList,"dd",Color.parseColor("#F59B42"))
-
-
-        );
-
 
 
 }
