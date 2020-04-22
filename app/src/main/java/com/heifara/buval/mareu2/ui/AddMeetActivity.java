@@ -54,17 +54,14 @@ public class AddMeetActivity extends AppCompatActivity {
     private static MeetApiService meetApiService;
     private Calendar mNow;
     private boolean error;
-
     @BindView(R.id.room_name_layout)
     TextInputLayout mRoomNameTextInputLayout;
     @BindView(R.id.room_name)
     AutoCompleteTextView mRoomNameAutoCompleteTextView;
-
     @BindView(R.id.topic_layout)
     TextInputLayout mTopicTextInputLayout;
     @BindView(R.id.topic)
     TextInputEditText mTopicTextInputEditText;
-
     @BindView(R.id.date_layout)
     TextInputLayout mDateTextInputLayout;
     @BindView(R.id.date)
@@ -106,6 +103,8 @@ public class AddMeetActivity extends AppCompatActivity {
         List<String> mRooms = meetApiService.getRooms();
         initEmailsKeyListener();
         mRoomNameAutoCompleteTextView.setAdapter(new ArrayAdapter<>(this, R.layout.room_item, mRooms));
+
+
     }
 
     @Override
@@ -197,8 +196,8 @@ public class AddMeetActivity extends AppCompatActivity {
             if (checkTime(start, end, tempStartTime, tempEndTime)
                     || outRangeTime(start, end, tempStartTime, tempEndTime)
                     || inRangeTime(start, end, tempStartTime, tempEndTime)
-                    || startInEndOut(start, end, tempStartTime, tempEndTime)
-                    || endInStartOut(start, end, tempStartTime, tempEndTime)) {
+                    || startInEndOut(start, tempStartTime, tempEndTime)
+                    || endInStartOut(end, tempStartTime, tempEndTime)) {
                 mRoomNameTextInputLayout.setError(getText(R.string.error_meeting_room_already_booked));
                 error = true;
                 break;

@@ -7,8 +7,10 @@ import android.support.test.runner.lifecycle.Stage;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.DatePicker;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -18,6 +20,7 @@ import com.heifara.buval.mareu2.utils.DeleteViewAction;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
@@ -37,11 +40,13 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.heifara.buval.mareu2.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -360,6 +365,7 @@ public class InstrumentedTest {
 
 
     }
+
     @Test
     public void afilteredByDate() {
         ViewInteraction actionMenuItemView = onView(
@@ -380,19 +386,30 @@ public class InstrumentedTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText.perform(replaceText("31/08/2020"), closeSoftKeyboard());
+        textInputEditText.perform(click());
 
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 8, 31));
         ViewInteraction materialButton = onView(
+                allOf(withId(android.R.id.button1), withText("OK"),
+                        childAtPosition(
+                                allOf(withClassName(is("android.widget.LinearLayout")),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                3)),
+                                3),
+                        isDisplayed()));
+        materialButton.perform(click());
+
+        ViewInteraction materialButton2 = onView(
                 allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.buttonPanel),
                                         0),
-                                1)));
-        materialButton.perform(scrollTo(), click());
+                                3)));
+        materialButton2.perform(scrollTo(), click());
 
-        isDisplayed();
-
+        onView(allOf(isDisplayed(), withId(R.id.meet_list))).check(withItemCount(1));
 
     }
 
@@ -427,16 +444,7 @@ public class InstrumentedTest {
                                         0),
                                 3)));
         materialButton.perform(scrollTo(), click());
-
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.description_item), withText("Room 2-12:00-Java conference"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.meet_list),
-                                        0),
-                                1),
-                        isDisplayed()));
-        textView.check(matches(withText("Room 2-12:00-Java conference")));
+        onView(allOf(isDisplayed(), withId(R.id.meet_list))).check(withItemCount(1));
     }
 
     @Test
@@ -912,7 +920,7 @@ public class InstrumentedTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText3.perform(replaceText("09:40"), closeSoftKeyboard());
+        textInputEditText3.perform(replaceText("09:40 PM"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText4 = onView(
@@ -923,7 +931,7 @@ public class InstrumentedTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText4.perform(replaceText("10:40"), closeSoftKeyboard());
+        textInputEditText4.perform(replaceText("10:40 PM"), closeSoftKeyboard());
 
 
         ViewInteraction textInputEditText5 = onView(

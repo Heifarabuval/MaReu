@@ -1,0 +1,9 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:shape="oval"
+    tools:keep="@drawable/ic_circle4">
+    <solid android:color="#42F5E6" />
+    <size
+        android:width="@dimen/circle_size"
+        android:height="@dimen/circle_size" />
+</shape>

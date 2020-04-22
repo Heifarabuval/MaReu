@@ -2,7 +2,6 @@ package com.heifara.buval.mareu2.ui.fragment.meet_list;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -28,7 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ListMeetActivity extends AppCompatActivity implements FilterFragment.OnButtonClickedListener {
-    private static final String TAG = "ListMeetActivity";
     private static MeetApiService meetApiService;
 
     @BindView(R.id.meet_list)
@@ -74,15 +72,12 @@ public class ListMeetActivity extends AppCompatActivity implements FilterFragmen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.filter) {
-            Log.d(TAG, "onOptionsItemSelected: filterClicked");
             performFilter();
             return true;
-
         }
         return super.onOptionsItemSelected(item);
 
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tool_bar_filter, menu);
@@ -98,7 +93,7 @@ public class ListMeetActivity extends AppCompatActivity implements FilterFragmen
     public void onDeleteMeet(DeleteMeetEvent event) {
 
         meetApiService.deleteMeet(event.meet);
-        Toast.makeText(getApplicationContext(), "Réunion supprimée", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getText(R.string.meet_deleted), Toast.LENGTH_SHORT).show();
         init(null, "");
 
     }

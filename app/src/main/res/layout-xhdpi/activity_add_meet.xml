@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constrainParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:keep="@layout/activity_add_meet_landscape">
+    android:orientation="vertical">
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/room_name_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="@dimen/text_input_layout_margin"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin_xhdpi"
         app:errorEnabled="true"
-
-
-        >
+        app:layout_constraintTop_toTopOf="@id/constrainParent">
 
         <AutoCompleteTextView
             android:id="@+id/room_name"
@@ -25,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:cursorVisible="false"
-            android:hint="@string/meet_room_name"
+
+            android:hint="meet_room_name"
             android:inputType="text"
             android:textSize="@dimen/text_view_spinner_size" />
 
@@ -35,9 +32,10 @@
         android:id="@+id/topic_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_input_layout_margin"
-        android:layout_weight="1"
-        app:errorEnabled="true">
+        android:layout_margin="@dimen/text_margin_xhdpi"
+
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@id/room_name_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/topic"
@@ -52,9 +50,10 @@
         android:id="@+id/date_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_input_layout_margin"
-        android:layout_weight="1"
-        app:errorEnabled="true">
+        android:layout_margin="@dimen/text_margin_xhdpi"
+
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@id/topic_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/date"
@@ -69,17 +68,19 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
+        android:id="@+id/until_from_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+
         android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/date_layout">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/from_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_input_layout_margin"
+            android:layout_margin="@dimen/text_margin_xhdpi"
             android:layout_weight="1"
             app:errorEnabled="true">
 
@@ -96,12 +97,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+
             android:id="@+id/until_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_input_layout_margin"
+            android:layout_margin="@dimen/text_margin_xhdpi"
             android:layout_weight="1"
-            app:errorEnabled="true">
+            app:errorEnabled="true"
+            app:layout_constraintTop_toBottomOf="@id/room_name_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/until"
@@ -111,7 +114,8 @@
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:hint="@string/until"
-                android:inputType="time" />
+                android:inputType="time"
+                app:layout_constraintTop_toBottomOf="@id/date_layout" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,9 +125,10 @@
         android:id="@+id/participants"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_input_layout_margin"
-        android:layout_weight="1"
-        app:errorEnabled="true">
+        android:layout_margin="@dimen/text_margin_xhdpi"
+
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@id/until_from_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emails"
@@ -135,11 +140,13 @@
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/emails_group"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/chip_group_top_margin"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/participants"
+
+
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -110,9 +110,6 @@ public class Meet implements Comparable<Meet> {
         return avatar;
     }
 
-    public void setAvatar(int avatar) {
-        this.avatar = avatar;
-    }
 
     @Override
     public int compareTo(Meet o) {

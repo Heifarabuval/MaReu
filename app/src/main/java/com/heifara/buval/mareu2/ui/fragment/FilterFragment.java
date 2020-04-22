@@ -59,7 +59,7 @@ public class FilterFragment extends DialogFragment {
                 mRooms));
 
         builder.setView(view);
-        builder.setTitle("select_filter");
+        builder.setTitle(getText(R.string.select_filter));
 
         builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
             mCallback.onButtonClicked(mDate, mRoomFilter.getEditableText().toString(), false);
@@ -67,7 +67,7 @@ public class FilterFragment extends DialogFragment {
 
         builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.dismiss());
 
-        builder.setNeutralButton("reset", (dialog, which) -> mCallback.onButtonClicked(mDate, mRoomFilter.getEditableText().toString(), true));
+        builder.setNeutralButton(getText(R.string.reset), (dialog, which) -> mCallback.onButtonClicked(mDate, mRoomFilter.getEditableText().toString(), true));
 
         return builder.create();
     }

@@ -19,7 +19,7 @@ import com.heifara.buval.mareu2.di.DI;
 import com.heifara.buval.mareu2.event.DeleteMeetEvent;
 import com.heifara.buval.mareu2.model.Meet;
 import com.heifara.buval.mareu2.service.MeetApiService;
-import com.heifara.buval.mareu2.view.ItemMeet;
+import com.heifara.buval.mareu2.ui.fragment.ItemMeet;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -40,7 +40,7 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
         mContext = context;
         MeetApiService meetApiService = DI.getMeetApiService();
         meetList = meetApiService.getMeets(date, room);
-        drawable = ContextCompat.getDrawable(mContext, R.drawable.ic_circle);
+        drawable = ContextCompat.getDrawable(mContext, R.drawable.ic_circle2);
 
     }
 
@@ -56,30 +56,20 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
 
     @Override
     public void onBindViewHolder(@NonNull ItemMeet holder, int position) {
-        System.out.println(meetList.size());
         final Meet meet = meetList.get(position);
         drawable.setTint(meet.getAvatar());
-
-
         String info = TextUtils.join("-", Arrays.asList(
                 meet.getRoomName(),
                 DateFormat.getTimeFormat(mContext).format(meet.getStart().getTime()),
                 meet.getMeetTopic()));
-
-
         Glide.with(holder.mImageView.getContext())
                 .load(meet.getAvatar())
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mImageView);
-
-
         holder.mDescriptionText.setText(info);
         holder.mParticipantsText.setText(TextUtils.join(",",
                 meet.getGuests()));
-
-
         //delete meet
-
         holder.mDeleteButton.setOnClickListener(
                 v -> {
                     EventBus.getDefault().post(new DeleteMeetEvent(meet));
@@ -87,8 +77,6 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
         );
 
     }
-
-
     @Override
     public int getItemCount() {
         return meetList.size();

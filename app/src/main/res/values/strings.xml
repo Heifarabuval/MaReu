@@ -18,4 +18,7 @@
     <string name="empty_email">"error email cannot be empty "</string>
     <string name="error_input">invalid input</string>
     <string name="invalid_mail">Invalid mail input</string>
+    <string name="meet_deleted">Deleted meet</string>
+    <string name="select_filter">select_filter</string>
+    <string name="reset">reset</string>
 </resources>

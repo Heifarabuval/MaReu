@@ -9,7 +9,7 @@ import java.util.List;
 
 import static com.heifara.buval.mareu2.utils.Calendar.sameDate;
 
-public class Filers {
+public class Filters {
     /*
     Return List sort by date
      */

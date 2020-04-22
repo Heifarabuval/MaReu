@@ -1,4 +1,4 @@
-package com.heifara.buval.mareu2.view;
+package com.heifara.buval.mareu2.ui.fragment;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

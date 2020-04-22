@@ -12,9 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class DummyMeetGenerator {
-    /**
-     *
-     */
+
     private static final String DATE_START1 = "31-08-2020 10:00:00";
     private static final String DATE_START2 = "18-08-2020 12:00:00";
     private static final String DATE_START3 = "08-08-2020 06:00:00";
@@ -37,7 +35,7 @@ public abstract class DummyMeetGenerator {
     private static final String ROOM3 = "Room 3";
     private static final String ROOM4 = "Room 4";
     private static final String COLOR1 = "#E3D514";
-    private static final String COLOR2 = "#D054E3";
+    private static final String COLOR2 = "#FF7C80";
     private static final String COLOR3 = "#756E91";
     private static final String COLOR4 = "#F59B42";
     private static final String MEET_TOPIC = "Java conference";

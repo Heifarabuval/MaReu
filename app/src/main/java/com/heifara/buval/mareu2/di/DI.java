@@ -18,16 +18,7 @@ public class DI {
         return service;
     }
 
-    /*public  static void  initMeetApiService (List<String> rooms, List<Meet> meets) throws MeetApiServiceException{
 
-        service = new DummyMeetApiService();
-        service.delAllRooms();
-
-        for (String room: rooms)
-            service.addRoom(room);
-        for (Meet meet: meets)
-            service.createMeet(meet);
-    }*/ 
 }
 
 

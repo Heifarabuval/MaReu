@@ -8,8 +8,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import static com.heifara.buval.mareu2.utils.Filers.getMeetByDate;
-import static com.heifara.buval.mareu2.utils.Filers.getMeetByRoomName;
+import static com.heifara.buval.mareu2.utils.Filters.getMeetByDate;
+import static com.heifara.buval.mareu2.utils.Filters.getMeetByRoomName;
 
 public class DummyMeetApiService implements MeetApiService {
 
@@ -62,17 +62,7 @@ public class DummyMeetApiService implements MeetApiService {
             }
         }
     }
-/*
-    @Override
-    public void deleteMeetTest(Meet meet) {
-List<Meet> tempMeetList = new ArrayList<>();
-tempMeetList.addAll(mMeet);
-        for(Meet tempMeet: tempMeetList){
-            if (meet.equals(meet)){
-                mMeet.remove(meet);
-            }
-        }
-    }*/
+
 
     @Override
     public void createMeet(Meet meet) {

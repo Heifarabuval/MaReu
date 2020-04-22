@@ -16,9 +16,6 @@ public interface MeetApiService {
      */
     List<String> getRooms();
 
-
-
-
     /**
      * Get all my meets
      *
@@ -27,15 +24,12 @@ public interface MeetApiService {
     List<Meet> getMeets(Calendar date, String roomName);
 
     List<Meet> getMeetsList();
-
     /**
      * Deletes a meet
      *
      * @param meet
      */
     void deleteMeet(Meet meet);
-
-
     /**
      * Create Meet
      *
