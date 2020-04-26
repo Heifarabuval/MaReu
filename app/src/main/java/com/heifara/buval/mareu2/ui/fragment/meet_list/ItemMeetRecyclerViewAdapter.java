@@ -9,11 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.heifara.buval.mareu2.R;
 import com.heifara.buval.mareu2.di.DI;
 import com.heifara.buval.mareu2.event.DeleteMeetEvent;
@@ -37,10 +34,11 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
 
 
     public ItemMeetRecyclerViewAdapter(Context context, Calendar date, String room) {
+
         mContext = context;
         MeetApiService meetApiService = DI.getMeetApiService();
         meetList = meetApiService.getMeets(date, room);
-        drawable = ContextCompat.getDrawable(mContext, R.drawable.ic_circle2);
+
 
     }
 
@@ -49,23 +47,25 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
     public ItemMeet onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.meet_item, parent, false);
-
         return new ItemMeet(view, mContext);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemMeet holder, int position) {
-        final Meet meet = meetList.get(position);
-        drawable.setTint(meet.getAvatar());
+
+
+        Meet meet = meetList.get(position);
+
         String info = TextUtils.join("-", Arrays.asList(
                 meet.getRoomName(),
                 DateFormat.getTimeFormat(mContext).format(meet.getStart().getTime()),
                 meet.getMeetTopic()));
-        Glide.with(holder.mImageView.getContext())
-                .load(meet.getAvatar())
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.mImageView);
+
+        /* holder.colorDrawable(meet,mContext);*/
+
+        holder.bind(meet);
+
         holder.mDescriptionText.setText(info);
         holder.mParticipantsText.setText(TextUtils.join(",",
                 meet.getGuests()));

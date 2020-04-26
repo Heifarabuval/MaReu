@@ -2,16 +2,19 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    tools:context=".ui.fragment.meet_list.ListMeetActivity"
     android:orientation="horizontal">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:src="@drawable/photoprofil"
         android:id="@+id/circle_item"
+        app:layout_constraintCircleRadius="@dimen/circle_size"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="@dimen/text_margin"
-        android:background="@drawable/ic_circle2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
