@@ -34,13 +34,6 @@ public class ItemMeet extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
 
     }
-/*
-    public Drawable colorDrawable(Meet meet, Context context){
-        Drawable  drawable = ContextCompat.getDrawable(context, R.drawable.ic_circle2);
-    drawable.setTint(meet.getAvatar());
-    return drawable;
-    }*/
-
 
     private CircleImageView setImageViewColor(Meet meet, Context context) {
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_circle2);
@@ -50,14 +43,10 @@ public class ItemMeet extends RecyclerView.ViewHolder {
     }
 
     public void bind(Meet meet) {
-
-
         Glide.with(mImageView.getContext())
                 .load(setImageViewColor(meet, mImageView.getContext()))
                 .apply(RequestOptions.circleCropTransform())
                 .into(mImageView);
-
-
     }
 
 }

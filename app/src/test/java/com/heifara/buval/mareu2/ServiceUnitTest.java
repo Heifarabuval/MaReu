@@ -67,7 +67,7 @@ public class ServiceUnitTest {
 
         Meet meetToDelete = meetApiService.getMeetsList().get(0);
         meetApiService.deleteMeet(meetToDelete);
-        assertFalse("Impossible de supprimer un voisin de la liste contacts", meetApiService.getMeetsList().contains(meetToDelete));
+        assertFalse("Unable to delete meeting", meetApiService.getMeetsList().contains(meetToDelete));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class ServiceUnitTest {
             if (tempRoomName.matches(roomName)) {
                 expectedMeet.add(staticMeet.get(i));
             }
-            assertTrue("Les listes ne correspondent pas", meets.containsAll(expectedMeet));
+            assertTrue("Lists doesn't match", meets.containsAll(expectedMeet));
         }
 
 
@@ -99,10 +99,10 @@ public class ServiceUnitTest {
         List<String> emailList = Arrays.asList("aaa@ddd.com", "bbb@ggg.com");
         Calendar dateStartCal1 = convertStringToDate(dateStart);
         Calendar dateEndCal2 = convertStringToDate(dateEnd);
-        Meet meetToAdd = new Meet("Room 1", dateStartCal1, dateStartCal1, dateEndCal2, emailList, "voila", Color.parseColor("#D054E3"));
+        Meet meetToAdd = new Meet("Room 1", dateStartCal1, dateStartCal1, dateEndCal2, emailList, "Commercial", Color.parseColor("#D054E3"));
         try {
             meetApiService.createMeet(meetToAdd);
-            assertTrue("Impossible de créer et d'ajouter une réunion", meetApiService.getMeets(dateStartCal1, "Room 1").contains(meetToAdd));
+            assertTrue("Unable to create a meeting", meetApiService.getMeets(dateStartCal1, "Room 1").contains(meetToAdd));
         } catch (MeetApiServiceException e) {
             e.printStackTrace();
         }

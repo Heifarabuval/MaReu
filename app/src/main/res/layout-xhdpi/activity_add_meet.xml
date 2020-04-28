@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:cursorVisible="false"
 
-            android:hint="meet_room_name"
+            android:hint="@string/room_name"
             android:inputType="text"
             android:textSize="@dimen/text_view_spinner_size" />
 

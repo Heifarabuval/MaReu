@@ -39,7 +39,7 @@ public class Meet implements Comparable<Meet> {
     /**
      * Avatar
      */
-    private int avatar;
+    private final int avatar;
 
 
     /**

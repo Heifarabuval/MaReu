@@ -21,4 +21,7 @@
     <string name="meet_deleted">Deleted meet</string>
     <string name="select_filter">select_filter</string>
     <string name="reset">reset</string>
+    <string name="room_name">" room name"</string>
+    <string name="date_filter">date filter</string>
+    <string name="room_filter">room filter</string>
 </resources>

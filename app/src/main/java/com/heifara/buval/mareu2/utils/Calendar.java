@@ -1,7 +1,8 @@
 package com.heifara.buval.mareu2.utils;
 
 public class Calendar {
-    public static boolean checkTime(java.util.Calendar startTime, java.util.Calendar endTime, java.util.Calendar startTimeItemList, java.util.Calendar endTimeItemList) {
+    public static boolean checkTime(java.util.Calendar startTime, java.util.Calendar endTime, java.util.Calendar startTimeItemList,
+                                    java.util.Calendar endTimeItemList) {
         if ((startTime.get(java.util.Calendar.HOUR_OF_DAY) == (startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY))) ||
                 (endTime.get(java.util.Calendar.HOUR_OF_DAY) == (endTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)))) {
             return (startTime.get(java.util.Calendar.MINUTE) == (startTimeItemList.get(java.util.Calendar.MINUTE))) ||
@@ -9,23 +10,25 @@ public class Calendar {
         }
         return false;
     }
-    public static boolean outRangeTime(java.util.Calendar startTime, java.util.Calendar endTime, java.util.Calendar startTimeItemList, java.util.Calendar endTimeItemList) {
+
+    public static boolean outRangeTime(java.util.Calendar startTime, java.util.Calendar endTime, java.util.Calendar startTimeItemList,
+                                       java.util.Calendar endTimeItemList) {
         if (startTime.get(java.util.Calendar.HOUR_OF_DAY) < startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY) &&
                 (endTime.get(java.util.Calendar.HOUR_OF_DAY) > endTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)))
             return true;
 
-        if ((startTime.get(java.util.Calendar.HOUR_OF_DAY) == startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY))//InputStartHour = TempStartHour && InputEndHour < TempEndHour
+        if ((startTime.get(java.util.Calendar.HOUR_OF_DAY) == startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY))
                 && (endTime.get(java.util.Calendar.HOUR_OF_DAY) == endTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)))
 
             return startTime.get(java.util.Calendar.MINUTE) < startTimeItemList.get(java.util.Calendar.MINUTE) &&
                     endTime.get(java.util.Calendar.MINUTE) > endTimeItemList.get(java.util.Calendar.MINUTE);
 
-        if ((startTime.get(java.util.Calendar.HOUR_OF_DAY) < startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY))//InputStartHour = TempStartHour && InputEndHour < TempEndHour
+        if ((startTime.get(java.util.Calendar.HOUR_OF_DAY) < startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY))
                 && (endTime.get(java.util.Calendar.HOUR_OF_DAY) == endTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)))
 
             return endTime.get(java.util.Calendar.MINUTE) > endTimeItemList.get(java.util.Calendar.MINUTE);
 
-        if ((startTime.get(java.util.Calendar.HOUR_OF_DAY) == startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY))//InputStartHour = TempStartHour && InputEndHour < TempEndHour
+        if ((startTime.get(java.util.Calendar.HOUR_OF_DAY) == startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY))
                 && (endTime.get(java.util.Calendar.HOUR_OF_DAY) > endTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)))
 
             return startTime.get(java.util.Calendar.MINUTE) < endTimeItemList.get(java.util.Calendar.MINUTE);
@@ -34,12 +37,13 @@ public class Calendar {
     }
 
 
-    public static boolean inRangeTime(java.util.Calendar startTime, java.util.Calendar endTime, java.util.Calendar startTimeItemList, java.util.Calendar endTimeItemList) {
-        if (startTime.get(java.util.Calendar.HOUR_OF_DAY) > startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY) && //InputStartHour > TempStartHour && InputEndHour > TempEndHour
+    public static boolean inRangeTime(java.util.Calendar startTime, java.util.Calendar endTime, java.util.Calendar startTimeItemList,
+                                      java.util.Calendar endTimeItemList) {
+        if (startTime.get(java.util.Calendar.HOUR_OF_DAY) > startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY) &&
                 (endTime.get(java.util.Calendar.HOUR_OF_DAY) < endTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)))
             return true;
 
-        if ((startTime.get(java.util.Calendar.HOUR_OF_DAY) > startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY))//InputStartHour = TempStartHour && InputEndHour < TempEndHour
+        if ((startTime.get(java.util.Calendar.HOUR_OF_DAY) > startTimeItemList.get(java.util.Calendar.HOUR_OF_DAY))
                 && (endTime.get(java.util.Calendar.HOUR_OF_DAY) < endTimeItemList.get(java.util.Calendar.HOUR_OF_DAY)))
 
             return startTime.get(java.util.Calendar.MINUTE) > startTimeItemList.get(java.util.Calendar.MINUTE) &&

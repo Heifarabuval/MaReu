@@ -69,8 +69,6 @@ public class InstrumentedTest {
     public void setup() {
         ListMeetActivity meetActivity = meetActivityActivityTestRule.getActivity();
         assertThat(meetActivity, notNullValue());
-
-
     }
     @Test
     public void cMeetList_deleteAction() {
@@ -365,7 +363,7 @@ public class InstrumentedTest {
     }
 
     @Test
-    public void afilteredByDate() {
+    public void aFilteredByDate() {
         ViewInteraction actionMenuItemView = onView(
                 allOf(withId(R.id.filter), withContentDescription("menu_filter"),
                         childAtPosition(

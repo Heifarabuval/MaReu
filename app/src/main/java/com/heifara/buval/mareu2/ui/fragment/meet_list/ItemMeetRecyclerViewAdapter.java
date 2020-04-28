@@ -34,12 +34,9 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
 
 
     public ItemMeetRecyclerViewAdapter(Context context, Calendar date, String room) {
-
         mContext = context;
         MeetApiService meetApiService = DI.getMeetApiService();
         meetList = meetApiService.getMeets(date, room);
-
-
     }
 
     @NonNull
@@ -48,13 +45,10 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.meet_item, parent, false);
         return new ItemMeet(view, mContext);
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemMeet holder, int position) {
-
-
         Meet meet = meetList.get(position);
 
         String info = TextUtils.join("-", Arrays.asList(
@@ -62,10 +56,7 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
                 DateFormat.getTimeFormat(mContext).format(meet.getStart().getTime()),
                 meet.getMeetTopic()));
 
-        /* holder.colorDrawable(meet,mContext);*/
-
         holder.bind(meet);
-
         holder.mDescriptionText.setText(info);
         holder.mParticipantsText.setText(TextUtils.join(",",
                 meet.getGuests()));

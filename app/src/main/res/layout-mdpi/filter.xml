@@ -8,19 +8,19 @@
         android:id="@+id/date_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
+        android:layout_margin="@dimen/text_margin_mdpi"
         android:clickable="false"
         android:cursorVisible="false"
         android:focusable="false"
-        android:hint="date_filter" />
+        android:hint="@string/date_filter" />
 
     <AutoCompleteTextView
         android:id="@+id/room_filter"
         style="@style/Widget.AppCompat.Spinner.Underlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
+        android:layout_margin="@dimen/text_margin_mdpi"
         android:cursorVisible="false"
-        android:hint="room_filter"
+        android:hint="@string/room_filter"
         android:textSize="@dimen/text_view_spinner_size" />
 </LinearLayout>

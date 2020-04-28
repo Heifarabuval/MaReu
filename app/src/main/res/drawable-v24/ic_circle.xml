@@ -4,6 +4,6 @@
     <solid
         android:color="#24EA45"/>
     <size
-        android:width="@dimen/circle_size"
-        android:height="@dimen/circle_size"/>
+        android:width="@dimen/circle_size_anyDpi"
+        android:height="@dimen/circle_size_anyDpi" />
 </shape>
