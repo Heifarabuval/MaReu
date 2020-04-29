@@ -174,12 +174,15 @@ public class AddMeetActivity extends AppCompatActivity {
 
     @OnTouch(R.id.room_name)
     boolean onTouch(MotionEvent motionEvent) {
+        mRoomNameTextInputLayout.setHint("");
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             mRoomNameAutoCompleteTextView.showDropDown();
+
             return true;
         }
         return (motionEvent.getAction() == MotionEvent.ACTION_UP);
     }
+
 
     private void checkBookingRooms() {
         String roomName = checkTextInput(mRoomNameTextInputLayout);

@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="meet_room_name">meet_room_name</string>
-    <string name="meet_topic">meet_topic</string>
-    <string name="from">from</string>
-    <string name="until">until</string>
-    <string name="date">date</string>
-    <string name="participant_s_list">participant\'s list</string>
-    <string name="action_add">action_add</string>
-    <string name="menu_filter">menu_filter</string>
+    <string name="meet_room_name">Meeting room name</string>
+    <string name="meet_topic">Meeting topic</string>
+    <string name="from">From</string>
+    <string name="until">Until</string>
+    <string name="date">Date</string>
+    <string name="participant_s_list">Participant\'s list</string>
+    <string name="action_add">Action add</string>
+    <string name="menu_filter">Menu filter</string>
     <string name="empty_error_text">\"Time cannot be empty \"</string>
     <string name="error_date_passed">\"Passed date \"</string>
     <string name="error_empty">Cannot be empty</string>
     <string name="error_meeting_room_already_booked">\"The meeting room is already booked\"</string>
-    <string name="add_new_meet">Meet added</string>
+    <string name="add_new_meet">Meeting added</string>
     <string name="error_format">\"Invalid date format \"</string>
     <string name="error_time_passed">\"Invalid input time, time already passed \"</string>
     <string name="empty_email">"error email cannot be empty "</string>
     <string name="error_input">invalid input</string>
     <string name="invalid_mail">Invalid mail input</string>
-    <string name="meet_deleted">Deleted meet</string>
-    <string name="select_filter">select_filter</string>
+    <string name="meet_deleted">Deleted meeting</string>
+    <string name="select_filter">Select filter</string>
     <string name="reset">reset</string>
-    <string name="room_name">" room name"</string>
-    <string name="date_filter">date filter</string>
-    <string name="room_filter">room filter</string>
+    <string name="room_name">" Room name"</string>
+    <string name="date_filter">Date filter</string>
+    <string name="room_filter">Room filter</string>
 </resources>
