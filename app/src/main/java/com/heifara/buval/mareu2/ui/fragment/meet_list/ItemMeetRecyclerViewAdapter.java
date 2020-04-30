@@ -1,7 +1,6 @@
 package com.heifara.buval.mareu2.ui.fragment.meet_list;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -28,7 +27,7 @@ public class ItemMeetRecyclerViewAdapter extends RecyclerView.Adapter<ItemMeet> 
 
     public static final List<String> DRAWABLES = Arrays.asList(
             "#FFEB3B", "#FF0000", "#7EADE3", "#1E0099", "#24EA45", "#FD4BAE", "#B5BD38", "#F59B42", "#42F5E6", "#756E91", "#D054E3", "#BF4349", "#E3D514");
-    private static Drawable drawable;
+
     private final Context mContext;
     private final List<Meet> meetList;
 

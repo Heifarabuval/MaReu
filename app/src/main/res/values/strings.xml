@@ -24,4 +24,5 @@
     <string name="room_name">" Room name"</string>
     <string name="date_filter">Date filter</string>
     <string name="room_filter">Room filter</string>
+    <string name="error_has_occured">An error has occured</string>
 </resources>

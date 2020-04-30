@@ -45,11 +45,14 @@ public class Meet implements Comparable<Meet> {
     /**
      * Constructor
      *
-     * @param meetTopic
      * @param roomName
+     * @param date
      * @param start
      * @param end
+     * @param guests
      * @param meetTopic
+     * @param avatar
+     *
      */
 
     public Meet(String roomName, Calendar date, Calendar start, Calendar end, List<String> guests, String meetTopic, int avatar) {

@@ -217,8 +217,8 @@ public class AddMeetActivity extends AppCompatActivity {
         Calendar start = validStartTime(mStartTimeTextInputLayout);
         Calendar end = validStartTime(mEndTimeTextInputLayout);
         List<String> email = validEmail(mEmailsTextInputLayout, mEmailsChipGroup);
-        error = false;
 
+        error = email == null;
 
         if (start != null && end != null) {
             checkBookingRooms();
@@ -261,7 +261,7 @@ public class AddMeetActivity extends AppCompatActivity {
                 Toast.makeText(this.getApplicationContext(), R.string.add_new_meet, Toast.LENGTH_LONG).show();
                 finish();
             } catch (MeetApiServiceException e) {
-                mRoomNameTextInputLayout.setError(getText(R.string.error_meeting_room_already_booked));
+                mRoomNameTextInputLayout.setError(getText(R.string.error_has_occured));
                 error = false;
             }
         }
@@ -371,8 +371,8 @@ public class AddMeetActivity extends AppCompatActivity {
                 value = value.substring(0, value.length() - 1);
                 value = value.trim();
 
-                if (!value.isEmpty()) {
-                    if (!validateEmail(value)) {
+                if (value.isEmpty()) {
+                    if (validateEmail(value)) {
                         mEmailsTextInputLayout.setError(getText(R.string.empty_email));
                     } else {
                         addEmailToChipGroup(value);

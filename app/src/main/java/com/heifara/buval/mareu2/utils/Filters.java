@@ -15,10 +15,7 @@ public class Filters {
      */
     public static List<Meet> getMeetByDate(Calendar date, List<Meet> meetings) {
         List<Meet> temp = new ArrayList<>();
-
-
         for (Meet meet : meetings)
-
             if (sameDate(meet.getStart(), date))
                 temp.add(meet);
         Collections.sort(temp);
@@ -30,10 +27,10 @@ public class Filters {
     /*
     Return List sort by room name
      */
-    public static List<Meet> getMeetByRoomName(String roomNAme, List<Meet> meets) {
+    public static List<Meet> getMeetByRoomName(String roomName, List<Meet> meets) {
         List<Meet> temp = new ArrayList<>();
         for (Meet meet : meets)
-            if (meet.getRoomName().trim().equals(roomNAme.trim()))
+            if (meet.getRoomName().trim().equals(roomName.trim()))
                 temp.add(meet);
         Collections.sort(temp);
         return temp;
