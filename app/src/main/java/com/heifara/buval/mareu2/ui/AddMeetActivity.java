@@ -371,11 +371,13 @@ public class AddMeetActivity extends AppCompatActivity {
                 value = value.substring(0, value.length() - 1);
                 value = value.trim();
 
-                if (value.isEmpty()) {
+
+                if (!value.isEmpty()) {
                     if (validateEmail(value)) {
-                        mEmailsTextInputLayout.setError(getText(R.string.empty_email));
-                    } else {
                         addEmailToChipGroup(value);
+
+                    } else {
+                        mEmailsTextInputLayout.setError(getText(R.string.empty_email)); 
                     }
                 }
             }
